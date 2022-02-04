@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+  </head>
+
+  <body>
+    <h1><%= pageTitle %></h1>
+    <% if (mediaQueries.length === 0) { %>
+    <img
+      alt="<%= imgAlt %>"
+      src="https://via.placeholder.com/<%= legacyImgWidth %>"
+      srcset="https://via.placeholder.com/<%= mobileImgWidth %> 2x"
+    />
+    <% } else { %>
+    <picture>
+      <% mediaQueries.forEach((mqObject) => { %>
+      <source
+        media="(min-width: <%= mqObject.minWidth %>px)"
+        srcset="https://via.placeholder.com/<%= mqObject.imgWidth1x %> 1x,
+                https://via.placeholder.com/<%= mqObject.imgWidth2x %> 2x"
+      />
+      <% }) %>
+      <img
+        alt="<%= imgAlt %>"
+        src="https://via.placeholder.com/<%= legacyImgWidth %>"
+        srcset="https://via.placeholder.com/<%= mobileImgWidth %> 2x"
+      />
+    </picture>
+    <% } %>
+  </body>
+</html>
