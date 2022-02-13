@@ -17,7 +17,12 @@ let browser = await puppeteer.launch({
 const page = await browser.newPage();
 blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
 
-for (const { pageName, pageUrl, imageCssSelector } of extractionRules) {
+for (const {
+  isCapped,
+  pageName,
+  pageUrl,
+  imageCssSelector,
+} of extractionRules) {
   const thisPageData = [];
   console.log(`Navigating to ${pageUrl}...`);
   await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 0 });
@@ -44,15 +49,14 @@ for (const { pageName, pageUrl, imageCssSelector } of extractionRules) {
     const idealIntrinsicWidth = imgWidth * pixelRatio;
 
     // Setting initially proposed intrinsic width - TODO: EXTRACT IN OTHER FILE
-    if (pageName === "capped") {
+    if (isCapped === "true") {
       if (
         viewportWidth === 414 && // TODO: CALCULATE BY READING RESOLUTIONS
         pixelRatio === 2
       ) {
         proposedIntrinsicWidth = idealIntrinsicWidth_capped2x;
       }
-    }
-    if (pageName === "uncapped") {
+    } else {
       if (
         (viewportWidth === 414 && // TODO: CALCULATE BY READING RESOLUTIONS
           pixelRatio === 2) ||
