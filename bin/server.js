@@ -1,6 +1,6 @@
 import express from "express";
-import preparePlpImageModel from "../lib/cappedImageModel.js";
-import preparePdpImageModel from "../lib/uncappedImageModel.js";
+import prepareCappedImgModel from "../lib/cappedImageModel.js";
+import prepareUncappedImgModel from "../lib/uncappedImageModel.js";
 import csvToJson from "csvtojson";
 
 const colParser = {
@@ -12,10 +12,10 @@ const colParser = {
 };
 
 const cappedData = await csvToJson({ delimiter: "auto", colParser }).fromFile(
-  "./data/capped.csv"
+  "./data/listing.csv"
 );
 const uncappedData = await csvToJson({ delimiter: "auto", colParser }).fromFile(
-  "./data/uncapped.csv"
+  "./data/detail.csv"
 );
 
 const app = express();
@@ -23,14 +23,14 @@ const port = 8080;
 
 app.set("view engine", "ejs");
 app.get("/capped", function (req, res) {
-  const templateData = preparePlpImageModel(cappedData, 2);
+  const templateData = prepareCappedImgModel(cappedData, 2);
   templateData.pageTitle = "Capped images page";
   templateData.imgAlt = "Capped image";
   res.render("capped.ejs", templateData);
 });
 
 app.get("/uncapped", function (req, res) {
-  const templateData = preparePdpImageModel(uncappedData);
+  const templateData = prepareUncappedImgModel(uncappedData);
   templateData.pageTitle = "Uncapped images page";
   templateData.imgAlt = "Uncapped image";
   res.render("uncapped.ejs", templateData);
