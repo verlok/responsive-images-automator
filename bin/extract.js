@@ -44,7 +44,7 @@ for (const { pageName, pageUrl, imageCssSelector } of extractionRules) {
     const idealIntrinsicWidth = imgWidth * pixelRatio;
 
     // Setting initially proposed intrinsic width - TODO: EXTRACT IN OTHER FILE
-    if (pageName === "plp") {
+    if (pageName === "capped") {
       if (
         viewportWidth === 414 && // TODO: CALCULATE BY READING RESOLUTIONS
         pixelRatio === 2
@@ -52,7 +52,7 @@ for (const { pageName, pageUrl, imageCssSelector } of extractionRules) {
         proposedIntrinsicWidth = idealIntrinsicWidth_capped2x;
       }
     }
-    if (pageName === "pdp") {
+    if (pageName === "uncapped") {
       if (
         (viewportWidth === 414 && // TODO: CALCULATE BY READING RESOLUTIONS
           pixelRatio === 2) ||

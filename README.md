@@ -38,7 +38,7 @@ Don't panic, we got your back.
 
 - Open extracted data (`/data/{pageName}-extracted.csv`) in Excel
 - Save it temporarily in Excel format with file name (`/data/{pageName}-temp.xls`)
-- Copy and paste the calculated columns from `./wizardry/magic-formulas.xlsx`, sheets `Listing Page Formulas` for listing pages (2x capping) and `Details Page Formulas` for details pages (no capping).
+- Copy and paste the calculated columns from `./wizardry/magic-formulas.xlsx`, sheets `Capped Images Formulas` for 2x capping and `Uncapped Images Formulas` for uncapped images.
 
 ### DEFINE INTRINSIC WIDTHS
 
@@ -57,7 +57,7 @@ The magic formulas you've pasted in the rightmost columns will guide you.
 
 ### POLISH VW
 
-In the Product Details Page data, it's important to group together similar values of the `imgVW` column. So if you have values like `39`, `40`, `41`, `43`, `44` you can probably set them all to `44`. This will allow the tag-generation script to generate ligher HTML code for the same results.
+In the Uncapped Images Page data, it's important to group together similar values of the `imgVW` column. So if you have values like `39`, `40`, `41`, `43`, `44` you can probably set them all to `44`. This will allow the tag-generation script to generate ligher HTML code for the same results.
 
 ### MULTIPLE PAGES REFINEMENT
 
@@ -65,7 +65,7 @@ Reusing the same dimensions across pages will leverage CDN cache and browser cac
 
 So check again: do you have similar `intrinsicWidth` values ACROSS PAGES?
 
-To check this, copy all the `intrinsicWidth` from the listing page and details page in a new sheet, sort the values and remove the duplicates. Calculate the delta between each of the widths, it's usually a bad practice to have deltas < 100 pixels.
+To check this, copy all the `intrinsicWidth` from the listing page and uncapped images page in a new sheet, sort the values and remove the duplicates. Calculate the delta between each of the widths, it's usually a bad practice to have deltas < 100 pixels.
 
 If you do have similar `intrinsicWidth` values, group them by using one of the similar values and repeat the process. 
 
@@ -83,8 +83,8 @@ Launch the server and visit pages to get the image tags you'd need.
 
 `npm run start`
 
-- PLP: http://localhost:8080/ 
-- PDP: http://localhost:8080/details/
+- Capped: http://localhost:8080/capped/
+- Uncapped: http://localhost:8080/uncapped/
 
 Use developer tools to inspect the images, right-click, copy outerHtml
 
@@ -100,8 +100,8 @@ Test the generated tag to understand if browsers will download images of the int
 
 ### required config
 
-- `views/__tests__/pdp.ejs.test.js`
-- `views/__tests__/plp.ejs.test.js`
+- `views/__tests__/uncapped.ejs.test.js`
+- `views/__tests__/capped.ejs.test.js`
 
 ### test (in another terminal window)
 

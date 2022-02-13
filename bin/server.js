@@ -1,6 +1,6 @@
 import express from "express";
-import preparePlpImageModel from "../lib/plpImageModel.js";
-import preparePdpImageModel from "../lib/pdpImageModel.js";
+import preparePlpImageModel from "../lib/cappedImageModel.js";
+import preparePdpImageModel from "../lib/uncappedImageModel.js";
 import csvToJson from "csvtojson";
 
 const colParser = {
@@ -11,29 +11,29 @@ const colParser = {
   imgVW: "number",
 };
 
-const plpData = await csvToJson({ delimiter: "auto", colParser }).fromFile(
-  "./data/plp.csv"
+const cappedData = await csvToJson({ delimiter: "auto", colParser }).fromFile(
+  "./data/capped.csv"
 );
-const pdpData = await csvToJson({ delimiter: "auto", colParser }).fromFile(
-  "./data/pdp.csv"
+const uncappedData = await csvToJson({ delimiter: "auto", colParser }).fromFile(
+  "./data/uncapped.csv"
 );
 
 const app = express();
 const port = 8080;
 
 app.set("view engine", "ejs");
-app.get("/", function (req, res) {
-  const templateData = preparePlpImageModel(plpData, 2);
-  templateData.pageTitle = "Listing page";
-  templateData.imgAlt = "Listing image";
-  res.render("plp.ejs", templateData);
+app.get("/capped", function (req, res) {
+  const templateData = preparePlpImageModel(cappedData, 2);
+  templateData.pageTitle = "Capped images page";
+  templateData.imgAlt = "Capped image";
+  res.render("capped.ejs", templateData);
 });
 
-app.get("/details", function (req, res) {
-  const templateData = preparePdpImageModel(pdpData);
-  templateData.pageTitle = "Details page";
-  templateData.imgAlt = "Details image";
-  res.render("pdp.ejs", templateData);
+app.get("/uncapped", function (req, res) {
+  const templateData = preparePdpImageModel(uncappedData);
+  templateData.pageTitle = "Uncapped images page";
+  templateData.imgAlt = "Uncapped image";
+  res.render("uncapped.ejs", templateData);
 });
 
 app.listen(port, function (error) {
