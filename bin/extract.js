@@ -18,7 +18,7 @@ const page = await browser.newPage();
 blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
 
 for (const {
-  isCapped,
+  capTo2x,
   pageName,
   pageUrl,
   imageCssSelector,
@@ -49,7 +49,7 @@ for (const {
     const idealIntrinsicWidth = imgWidth * pixelRatio;
 
     // Setting initially proposed intrinsic width - TODO: EXTRACT IN OTHER FILE
-    if (isCapped === "true") {
+    if (capTo2x === "true") {
       if (
         viewportWidth === 414 && // TODO: CALCULATE BY READING RESOLUTIONS
         pixelRatio === 2
