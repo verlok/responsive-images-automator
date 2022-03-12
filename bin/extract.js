@@ -21,10 +21,7 @@ const run = async (puppeteer) => {
 
   for (const extractionRule of extractionRules) {
     const thisPageData = [];
-    const { capTo2x, pageName, pageUrl } = extractionRule;
-
-    await navigateTo(page, pageUrl);
-
+    await navigateTo(page, extractionRule.pageUrl);
     for (const resolution of resolutions) {
       const imgWidth = await getImageWidthAt(page, resolution, extractionRule);
       //await takeScreenshot(page, resolution, extractionRule);
@@ -32,7 +29,7 @@ const run = async (puppeteer) => {
       const idealIntrinsicWidth = calcIdealIntrinsicWidth(
         imgWidth,
         resolution.pixelRatio,
-        capTo2x
+        extractionRule.capTo2x
       );
       const intrinsicWidth = idealIntrinsicWidth;
       const imgVW = Math.round((imgWidth / resolution.viewportWidth) * 100);
@@ -46,7 +43,7 @@ const run = async (puppeteer) => {
     }
 
     const csv = new ObjectsToCsv(thisPageData);
-    await csv.toDisk(`./data/${pageName}-extracted.csv`);
+    await csv.toDisk(`./data/${extractionRule.pageName}-extracted.csv`);
   }
 
   await browser.close();
