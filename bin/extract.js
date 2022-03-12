@@ -29,8 +29,6 @@ const run = async (puppeteer) => {
       const imgWidth = await getImageWidthAt(page, resolution, extractionRule);
       //await takeScreenshot(page, resolution, extractionRule);
 
-      console.debug(imgWidth);
-
       const idealIntrinsicWidth = calcIdealIntrinsicWidth(
         imgWidth,
         resolution.pixelRatio,
