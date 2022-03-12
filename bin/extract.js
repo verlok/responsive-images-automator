@@ -11,7 +11,7 @@ import blockBlacklistedRequests from "../lib/extraction/blockBlacklistedRequests
 import getImageWidthAt from "../lib/extraction/getImageWidthAtViewport.js";
 import takeScreenshot from "../lib/extraction/takeScreenshot.js";
 import navigateTo from "../lib/extraction/navigateTo.js";
-import calcIdealIntrinsicWidth from "../lib/extraction/calcIdealIntrinsicWidth.js";
+import calcColumns from "../lib/extraction/calcColumns.js";
 
 const run = async (puppeteer) => {
   let browser = await puppeteer.launch({ headless: false });
@@ -26,19 +26,12 @@ const run = async (puppeteer) => {
       const imgWidth = await getImageWidthAt(page, resolution, extractionRule);
       //await takeScreenshot(page, resolution, extractionRule);
 
-      const idealIntrinsicWidth = calcIdealIntrinsicWidth(
-        imgWidth,
-        resolution.pixelRatio,
-        extractionRule.capTo2x
-      );
-      const intrinsicWidth = idealIntrinsicWidth;
-      const imgVW = Math.round((imgWidth / resolution.viewportWidth) * 100);
+      const fidelityCap = extractionRule.capTo2x === "true" ? 2 : 3;
+      const columns = calcColumns(imgWidth, resolution, fidelityCap);
 
       thisPageData.push({
         ...resolution,
-        imgVW,
-        idealIntrinsicWidth,
-        intrinsicWidth,
+        ...columns,
       });
     }
 
