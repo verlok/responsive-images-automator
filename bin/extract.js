@@ -8,79 +8,53 @@ import {
   extractionRules,
 } from "../lib/extraction/readCsvConfig.js";
 import blockBlacklistedRequests from "../lib/extraction/blockBlacklistedRequests.js";
+import getImageWidthAt from "../lib/extraction/getImageWidthAtViewport.js";
+import takeScreenshot from "../lib/extraction/takeScreenshot.js";
+import navigateTo from "../lib/extraction/navigateTo.js";
+import calcIdealIntrinsicWidth from "../lib/extraction/calcIdealIntrinsicWidth.js";
 
-let browser = await puppeteer.launch({
-  headless: false,
-  //devtools: true
-});
+const run = async (puppeteer) => {
+  let browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
 
-const page = await browser.newPage();
-blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
+  blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
 
-for (const {
-  capTo2x,
-  pageName,
-  pageUrl,
-  imageCssSelector,
-} of extractionRules) {
-  const thisPageData = [];
-  console.log(`Navigating to ${pageUrl}...`);
-  await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 0 });
+  for (const extractionRule of extractionRules) {
+    const thisPageData = [];
+    const { capTo2x, pageName, pageUrl } = extractionRule;
 
-  for (const { usage, viewportWidth, pixelRatio } of resolutions) {
-    let proposedIntrinsicWidth = 0;
-    const viewportOptions = {
-      deviceScaleFactor: pixelRatio,
-      width: viewportWidth,
-      height: 666,
-    };
-    console.log(
-      `Setting viewport width ${viewportWidth} @ ${pixelRatio} (usage ${usage}%)`
-    );
-    await page.setViewport(viewportOptions);
-    await page.waitForSelector(imageCssSelector);
-    await page.waitForTimeout(100);
-    /* console.log(`Taking screenshot...`);
-    await page.screenshot({
-      path: `screenshot-${pageName}-${viewportWidth}@${pixelRatio}.png`,
-    }); */
-    const imgWidth = await page.$eval(imageCssSelector, (image) => image.width);
-    const idealIntrinsicWidth_capped2x = imgWidth * Math.min(pixelRatio, 2);
-    const idealIntrinsicWidth = imgWidth * pixelRatio;
+    await navigateTo(page, pageUrl);
 
-    // Setting initially proposed intrinsic width - TODO: EXTRACT IN OTHER FILE
-    if (capTo2x === "true") {
-      if (
-        viewportWidth === 414 && // TODO: CALCULATE BY READING RESOLUTIONS
-        pixelRatio === 2
-      ) {
-        proposedIntrinsicWidth = idealIntrinsicWidth_capped2x;
-      }
-    } else {
-      if (
-        (viewportWidth === 414 && // TODO: CALCULATE BY READING RESOLUTIONS
-          pixelRatio === 2) ||
-        (viewportWidth === 375 && // TODO: CALCULATE BY READING RESOLUTIONS
-          pixelRatio === 3)
-      ) {
-        proposedIntrinsicWidth = idealIntrinsicWidth;
-      }
+    for (const resolution of resolutions) {
+      const imgWidth = await getImageWidthAt(page, resolution, extractionRule);
+      //await takeScreenshot(page, resolution, extractionRule);
+
+      console.debug(imgWidth);
+
+      const idealIntrinsicWidth = calcIdealIntrinsicWidth(
+        imgWidth,
+        resolution.pixelRatio,
+        capTo2x
+      );
+      const intrinsicWidth = idealIntrinsicWidth;
+      const imgVW = Math.round((imgWidth / resolution.viewportWidth) * 100);
+
+      thisPageData.push({
+        usage: `${resolution.usage}%`,
+        viewportWidth: resolution.viewportWidth,
+        pixelRatio: resolution.pixelRatio,
+        imgWidth: resolution.imgWidth,
+        imgVW,
+        idealIntrinsicWidth,
+        intrinsicWidth,
+      });
     }
 
-    thisPageData.push({
-      usage: `${usage}%`,
-      viewportWidth: viewportWidth,
-      pixelRatio,
-      imgWidth,
-      imgVW: Math.round((imgWidth / viewportWidth) * 100),
-      idealIntrinsicWidth_capped2x,
-      idealIntrinsicWidth,
-      intrinsicWidth: proposedIntrinsicWidth,
-    });
+    const csv = new ObjectsToCsv(thisPageData);
+    await csv.toDisk(`./data/${pageName}-extracted.csv`);
   }
 
-  const csv = new ObjectsToCsv(thisPageData);
-  await csv.toDisk(`./data/${pageName}-extracted.csv`);
-}
+  await browser.close();
+};
 
-await browser.close();
+await run(puppeteer);
