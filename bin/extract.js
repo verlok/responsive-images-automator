@@ -38,10 +38,7 @@ const run = async (puppeteer) => {
       const imgVW = Math.round((imgWidth / resolution.viewportWidth) * 100);
 
       thisPageData.push({
-        usage: `${resolution.usage}%`,
-        viewportWidth: resolution.viewportWidth,
-        pixelRatio: resolution.pixelRatio,
-        imgWidth: resolution.imgWidth,
+        ...resolution,
         imgVW,
         idealIntrinsicWidth,
         intrinsicWidth,
