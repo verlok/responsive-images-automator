@@ -1,4 +1,5 @@
 import camelToSentence from "./camelToSentence.js";
+import { CHOSEN_INTRINSIC_WIDTH } from "./constants.js";
 import getNumberFormats from "./getNumberFormats.js";
 
 export default function (workbook, extractionRule, thisPageData, fidelityCap) {
@@ -7,7 +8,7 @@ export default function (workbook, extractionRule, thisPageData, fidelityCap) {
     header: camelToSentence(key),
     key,
     style: {
-      font: { bold: key === "chosenIntrinsicWidth" },
+      font: { bold: key === CHOSEN_INTRINSIC_WIDTH },
       numFmt: getNumberFormats(key),
     },
   }));
