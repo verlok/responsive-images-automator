@@ -17,10 +17,9 @@ import createWorksheet from "./lib/createWorksheet.js";
 const run = async (puppeteer) => {
   let browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
-  const workbook = new ExcelJS.Workbook();
-
   blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
-
+  
+  const workbook = new ExcelJS.Workbook();
   for (const extractionRule of extractionRules) {
     const thisPageData = [];
     const fidelityCap = extractionRule.capTo2x === "true" ? 2 : 3;
