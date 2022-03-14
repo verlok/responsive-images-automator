@@ -10,7 +10,6 @@ import takeScreenshot from "./lib/takeScreenshot.js";
 import navigateTo from "./lib/navigateTo.js";
 import { calcImgVW, calcIdealIntrinsicWidth } from "./lib/calcImgColumns.js";
 import addChosenIntrinsicWidths from "./lib/addChosenIntrinsicWidths.js";
-import addEmptyColumsForFormulas from "./lib/addEmptyColumsForFormulas.js";
 
 import createWorksheet from "./lib/createWorksheet.js";
 import {
@@ -47,7 +46,6 @@ async function run(puppeteer) {
     }
 
     currentPageData = addChosenIntrinsicWidths(currentPageData, fidelityCap);
-    currentPageData = addEmptyColumsForFormulas(currentPageData); // IDEA: move into createWorksheet, maybe without adding columns to pagedata, but only adding columns in the worksheet?
 
     createWorksheet(workbook, extractionRule, currentPageData, fidelityCap);
     await workbook.xlsx.writeFile(
