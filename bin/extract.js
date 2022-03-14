@@ -23,7 +23,6 @@ async function run(puppeteer) {
   const page = await browser.newPage();
   blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
 
-  const workbook = new ExcelJS.Workbook();
   for (const extractionRule of extractionRules) {
     let currentPageData = [];
     const fidelityCap = extractionRule.capTo2x === "true" ? 2 : 3;
@@ -47,6 +46,7 @@ async function run(puppeteer) {
 
     currentPageData = addChosenIntrinsicWidths(currentPageData, fidelityCap);
 
+    const workbook = new ExcelJS.Workbook();
     createWorksheet(workbook, extractionRule, currentPageData, fidelityCap);
     await workbook.xlsx.writeFile(
       `./data/${extractionRule.pageName}-extracted.xlsx`
