@@ -31,7 +31,7 @@ export default function (workbook, extractionRule, thisPageData, fidelityCap) {
   worksheet.fillFormula(`I2:I${lastRowNumber}`, `H2/MIN(${fidelityCap}, C2)`);
   worksheet.fillFormula(
     `J2:J${lastRowNumber}`,
-    'IFS(I2<0.9, "POOR! (--)", I2<1, "(-)", I2=1, "OK", I2>1.2, "BIG (++)", I2>1, "(+)")'
+    '_xlfn.IFS(I2<0.9, "POOR! (--)", I2<1, "(-)", I2=1, "OK", I2>1.2, "BIG (++)", I2>1, "(+)")'
   );
   worksheet.fillFormula(`K2:K${lastRowNumber}`, "(I2-1)*A2");
 }
