@@ -5,15 +5,15 @@ import {
   CHOSEN_INTRINSIC_WIDTH,
 } from "./constants.js";
 
-export default function (data, fidelityCap) {
+export default function (partialPageData, fidelityCap) {
   let chosenValue = 0;
-  const chosenRow = data.find(
+  const chosenRow = partialPageData.find(
     (row) => row[VIEWPORT_WIDTH] === 414 && row[PIXEL_RATIO] === fidelityCap
   );
   if (chosenRow) {
     chosenValue = chosenRow[IDEAL_INTRINSIC_WIDTH];
   }
-  return data.map((row) => ({
+  return partialPageData.map((row) => ({
     ...row,
     [CHOSEN_INTRINSIC_WIDTH]: chosenValue,
   }));

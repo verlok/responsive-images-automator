@@ -12,48 +12,51 @@ import { calcImgVW, calcIdealIntrinsicWidth } from "./lib/calcImgColumns.js";
 import addChosenIntrinsicWidths from "./lib/addChosenIntrinsicWidths.js";
 
 import createWorksheet from "./lib/createWorksheet.js";
-import {
-  IMG_WIDTH,
-  IMG_VW,
-  IDEAL_INTRINSIC_WIDTH,
-} from "./lib/constants.js";
+import { IMG_WIDTH, IMG_VW, IDEAL_INTRINSIC_WIDTH, USAGE } from "./lib/constants.js";
 
 async function run(puppeteer) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
+  const workbook = new ExcelJS.Workbook();
 
   for (const extractionRule of extractionRules) {
-    let currentPageData = [];
-    const fidelityCap = extractionRule.capTo2x === "true" ? 2 : 3;
     await navigateTo(page, extractionRule.pageUrl);
-
-    for (const resolution of resolutions) {
-      const imgWidth = await getImageWidthAt(page, resolution, extractionRule);
-      resolution.usage /= 100;
-      //await takeScreenshot(page, resolution, extractionRule);
-      currentPageData.push({
-        ...resolution,
-        [IMG_WIDTH]: imgWidth,
-        [IMG_VW]: calcImgVW(imgWidth, resolution),
-        [IDEAL_INTRINSIC_WIDTH]: calcIdealIntrinsicWidth(
-          imgWidth,
-          resolution,
-          fidelityCap
-        ),
-      });
-    }
-
-    currentPageData = addChosenIntrinsicWidths(currentPageData, fidelityCap);
-
-    const workbook = new ExcelJS.Workbook();
-    createWorksheet(workbook, extractionRule, currentPageData, fidelityCap);
-    await workbook.xlsx.writeFile(
-      `./data/${extractionRule.pageName}-extracted.xlsx`
+    const fidelityCap = extractionRule.capTo2x === "true" ? 2 : 3;
+    const partialCurrentPageData = await getCurrentPageData(
+      page,
+      extractionRule,
+      fidelityCap
     );
+    const currentPageData = addChosenIntrinsicWidths(
+      partialCurrentPageData,
+      fidelityCap
+    );
+    createWorksheet(workbook, extractionRule, currentPageData, fidelityCap);
   }
 
+  await workbook.xlsx.writeFile(`./data/datafile-extracted.xlsx`);
   await browser.close();
 }
 
 await run(puppeteer);
+
+async function getCurrentPageData(page, extractionRule, fidelityCap) {
+  const currentPageData = [];
+  for (const resolution of resolutions) {
+    const imgWidth = await getImageWidthAt(page, resolution, extractionRule);
+    //await takeScreenshot(page, resolution, extractionRule);
+    currentPageData.push({
+      ...resolution,
+      [USAGE]: resolution.usage / 100,
+      [IMG_WIDTH]: imgWidth,
+      [IMG_VW]: calcImgVW(imgWidth, resolution, 5),
+      [IDEAL_INTRINSIC_WIDTH]: calcIdealIntrinsicWidth(
+        imgWidth,
+        resolution,
+        fidelityCap
+      ),
+    });
+  }
+  return currentPageData;
+}
