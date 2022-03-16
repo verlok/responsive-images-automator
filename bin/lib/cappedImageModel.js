@@ -1,19 +1,20 @@
+import { CHOSEN_INTRINSIC_WIDTH, PIXEL_RATIO, VIEWPORT_WIDTH } from "./constants.js";
 
-const cappedCompareFn = (rowA, rowB) => rowA.viewportWidth - rowB.viewportWidth || rowA.pixelRatio - rowB.pixelRatio;
+const cappedCompareFn = (rowA, rowB) => rowA[VIEWPORT_WIDTH] - rowB[VIEWPORT_WIDTH] || rowA[PIXEL_RATIO] - rowB[PIXEL_RATIO];
 
-const calculateCappedWidths = (intrinsicWidthsConfig, pxrCapping) => {
+const calculateCappedWidths = (pageData, pxrCapping) => {
     const output = [];
     let lastWidths = { widthAt1x: null, widthAt2x: null };
-    for (const row of intrinsicWidthsConfig) {
-        const roundedPxr = Math.round(row.pixelRatio);
+    for (const row of pageData) {
+        const roundedPxr = Math.round(row[PIXEL_RATIO]);
         const cappedPxr = Math.min(roundedPxr, pxrCapping);
         const thisKey = cappedPxr === 1 ? 'widthAt1x' : 'widthAt2x';
-        lastWidths[thisKey] = row.intrinsicWidth;
+        lastWidths[thisKey] = row[CHOSEN_INTRINSIC_WIDTH];
         if (lastWidths.widthAt1x === null) {
             lastWidths.widthAt1x = lastWidths.widthAt2x;
         }
         output.push({
-            viewportWidth: row.viewportWidth,
+            viewportWidth: row[VIEWPORT_WIDTH],
             ...lastWidths
         })
     }

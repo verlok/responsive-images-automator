@@ -1,6 +1,8 @@
+import { VIEWPORT_WIDTH, PIXEL_RATIO, CHOSEN_INTRINSIC_WIDTH } from "./constants.js";
+
 const uncappedCompareFn = (rowA, rowB) =>
-  rowA.viewportWidth - rowB.viewportWidth ||
-  rowA.pixelRatio - rowB.pixelRatio;
+  rowA[VIEWPORT_WIDTH] - rowB[VIEWPORT_WIDTH] ||
+  rowA[PIXEL_RATIO] - rowB[PIXEL_RATIO];
 
 const getImageSizesAttr = (imageSizes) =>
   imageSizes
@@ -30,7 +32,9 @@ const getImageSizesMediaQueries = (sortedWidths) => {
 
 export default (intrinsicWidthsConfig) => {
   const sortedPdpImgWidths = intrinsicWidthsConfig.sort(uncappedCompareFn);
-  const onlyImgWidths = sortedPdpImgWidths.map((row) => row.intrinsicWidth);
+  const onlyImgWidths = sortedPdpImgWidths.map(
+    (row) => row[CHOSEN_INTRINSIC_WIDTH]
+  );
   const dedupedImgWidths = Array.from(new Set(onlyImgWidths));
   const imageSizesMediaQueries = getImageSizesMediaQueries(sortedPdpImgWidths);
   const templateData = {
@@ -38,15 +42,5 @@ export default (intrinsicWidthsConfig) => {
     legacyImgWidth: dedupedImgWidths[dedupedImgWidths.length - 1],
     imageSizesAttr: getImageSizesAttr(imageSizesMediaQueries),
   };
-  /* console.log("sortedPdpImgWidths");
-  console.log(sortedPdpImgWidths);
-  console.log("onlyImgWidths");
-  console.log(onlyImgWidths);
-  console.log("dedupedImgWidths");
-  console.log(dedupedImgWidths);
-  console.log("imageSizesMediaQueries");
-  console.log(imageSizesMediaQueries);
-  console.log("templateData");
-  console.log(templateData); */
   return templateData;
 };
