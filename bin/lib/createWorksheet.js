@@ -1,4 +1,3 @@
-import camelToSentence from "./camelToSentence.js";
 import {
   CHOSEN_INTRINSIC_WIDTH,
   EVALUATION,
@@ -7,6 +6,11 @@ import {
   WASTE,
   USAGE,
 } from "./constants.js";
+
+function camelToSentence(camel) {
+  const result = camel.replace(/([A-Z])/g, " $1");
+  return result.charAt(0).toUpperCase() + result.slice(1);
+}
 
 function getNumberFormat(key) {
   switch (key) {
@@ -31,10 +35,10 @@ function getColumnKeys(thisPageData) {
   ];
 }
 
-function getColumnNames(columnKeys) {
+function getColumns(columnKeys) {
   return columnKeys.map((key) => ({
-    header: camelToSentence(key),
     key,
+    header: key, //camelToSentence(key),
     style: {
       font: { bold: key === CHOSEN_INTRINSIC_WIDTH },
       numFmt: getNumberFormat(key),
@@ -70,7 +74,7 @@ export default function (workbook, extractionRule, thisPageData, fidelityCap) {
   const worksheet = workbook.addWorksheet(extractionRule.pageName);
   const columnKeys = getColumnKeys(thisPageData);
   const lastRowNumber = thisPageData.length + 1;
-  worksheet.columns = getColumnNames(columnKeys);
+  worksheet.columns = getColumns(columnKeys);
   worksheet.addRows(thisPageData);
   fillWithFormulas(worksheet, lastRowNumber, fidelityCap);
   autoWidth(worksheet);
