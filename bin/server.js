@@ -1,5 +1,5 @@
 import express from "express";
-import prepareCappedImgModel from "../lib/cappedImageModel.js";
+import prepareCappedImgModel from "./lib/cappedImageModel.js";
 import prepareUncappedImgModel from "../lib/uncappedImageModel.js";
 import csvToJson from "csvtojson";
 import { extractionRules } from "./lib/readCsvConfig.js";
