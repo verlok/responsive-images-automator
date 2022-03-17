@@ -3,7 +3,7 @@ const pageUrl = "http://127.0.0.1:8080/page/detail";
 
 let browser;
 
-describe("Testing PDP images", () => {
+describe("Testing detail page image", () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({
       //headless: false
