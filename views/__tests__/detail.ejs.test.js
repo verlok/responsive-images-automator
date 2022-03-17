@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const pageUrl = "http://127.0.0.1:8080/uncapped/";
+const pageUrl = "http://127.0.0.1:8080/page/detail";
 
 let browser;
 
@@ -41,7 +41,7 @@ describe("Testing PDP images", () => {
       await page.goto(pageUrl);
       await page.reload({ waitUntil: "domcontentloaded" });
       await page.waitForFunction(`document.querySelector("img").currentSrc`);
-      //await page.screenshot({ path: `uncapped-${viewportWidth}@${pixelRatio}.png` });
+      //await page.screenshot({ path: `detail-${viewportWidth}@${pixelRatio}.png` });
       const body = await page.$("body");
       expect(await body.$eval("img", (img) => img.currentSrc)).toBe(
         `https://via.placeholder.com/${intrinsicWidth}`

@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const pageUrl = "http://127.0.0.1:8080/capped/";
+const pageUrl = "http://127.0.0.1:8080/page/listing";
 
 let browser;
 
@@ -40,10 +40,8 @@ describe("Testing PLP images", () => {
       });
       await page.goto(pageUrl);
       await page.reload({ waitUntil: "domcontentloaded" });
-      /* await page.waitForTimeout(500);
-      await page.waitForSelector("img"); */
       await page.waitForFunction(`document.querySelector("img").currentSrc`);
-      //await page.screenshot({ path: `capped-${viewportWidth}@${pixelRatio}.png` });
+      //await page.screenshot({ path: `listing-${viewportWidth}@${pixelRatio}.png` });
       const body = await page.$("body");
       expect(await body.$eval("img", (img) => img.currentSrc)).toBe(
         `https://via.placeholder.com/${intrinsicWidth}`
