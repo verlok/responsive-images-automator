@@ -1,9 +1,13 @@
 # TO DO
 
-Add `npm build` to generate image tags (or pages and image tags?) in static files, for easier copy and paste and easier testing. 
-Express.js would be used only by JEST for testing purposes.
 
----
+## VERSION 2
+
+Fix HTML code generation.
+Make tests turn green again.
+
+
+## VERSION 3
 
 Add `npm build:tests` to generate JEST files starting from the Excel data file.
 
@@ -17,6 +21,11 @@ Automate all the logic that is now in charge of the final user with the help of 
 Find the algorithm while doing it manually and transform it into code.
 
 Automatically round `vw` to `10vw` or amongst groups of `10vw`, instead of asking users to do it manually.
+
+---
+
+Add `npm build` to generate image tags (or pages and image tags?) in static files, for easier copy and paste and easier testing. 
+Express.js would be used only by JEST for testing purposes.
 
 ---
 
