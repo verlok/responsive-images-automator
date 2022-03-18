@@ -1,8 +1,15 @@
-import { VIEWPORT_WIDTH, PIXEL_RATIO, CHOSEN_INTRINSIC_WIDTH } from "./constants.js";
+import {
+  PIXEL_RATIO,
+  CHOSEN_INTRINSIC_WIDTH,
+  IMG_VW,
+} from "./constants.js";
 
-const uncappedCompareFn = (rowA, rowB) =>
-  rowA[VIEWPORT_WIDTH] - rowB[VIEWPORT_WIDTH] ||
-  rowA[PIXEL_RATIO] - rowB[PIXEL_RATIO];
+const uncappedCompareFn = (rowA, rowB) => {
+  return (
+    rowA[IMG_VW] - rowB[IMG_VW] ||
+    rowA[PIXEL_RATIO] - rowB[PIXEL_RATIO]
+  );
+};
 
 const getImageSizesAttr = (imageSizes) =>
   imageSizes
