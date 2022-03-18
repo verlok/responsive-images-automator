@@ -23,8 +23,8 @@ Extract images `width` in CSS pixels and in `vw` unit from pages, using puppetee
 `npm run extract`
 
 ### output
-
-- `data/{pageName}-extracted.csv`
+ 
+Find the extracted data in `/data/datafile-extracted.xlsx`, one worksheet per row of the extraction page.
 
 
 ## ADD INTRINSIC WIDTHS
@@ -32,32 +32,29 @@ Extract images `width` in CSS pixels and in `vw` unit from pages, using puppetee
 Defining the intrinsic width of the images would be your only manual step. 
 Don't panic, we got your back.
 
---- START - 👀 Steps to repeat for each page ---
-
 ### PREPARE THE CANVAS
 
-- Open extracted data (`/data/{pageName}-extracted.csv`) in Excel
-- Save it temporarily in Excel format with file name (`/data/{pageName}-temp.xls`)
-- Copy and paste the calculated columns from `./wizardry/magic-formulas.xlsx`, sheets `Capped Images Formulas` for 2x capping and `Uncapped Images Formulas` for uncapped images.
+- Open extracted data (`/data/datafile-extracted.xlsx`) in Excel
+- Save it with file name (`/data/datafile.xlsx`)
 
 ### DEFINE INTRINSIC WIDTHS
 
 You'll need to define ideal images' intrinsic widths in order to have a few (5 or 6) final image dimensions and minimise waste.
 
-The magic formulas you've pasted in the rightmost columns will guide you.
+The magic formulas in the rightmost columns of the spreadsheet will guide you.
 
-- Try and reuse the `intrinsicWidth` in all other resolutions (rows)
-- Adjust `intrinsicWidth` where you see "POOR" or "BIG" indications in the `isOK` column. 
-  You can copy values from the `idealIntrinsicWidth_capped2x` column in PLP, `idealIntrinsicWidth` in uncapped images.
-  You might accept a "BIG" on rarely used resolutions, e.g. 320@2x.
-- Now check: do you have similar `intrinsicWidth` values? 
-  If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution. Do that and check again the `isOK` column and adjust where needed.
+Adjust `intrinsicWidth` where you see "POOR" or "BIG" indications in the `isOK` column. You want to accept a "BIG" on rarely used resolutions, e.g. 320@2x.
 
---- END - 👀 Steps to repeat for each page ---
+Now check: do you have similar `intrinsicWidth` values? If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution. Do that and check again the `isOK` column and adjust where needed.
 
 ### POLISH VW
 
-In the Uncapped Images Page data, it's important to group together similar values of the `imgVW` column. So if you have values like `39`, `40`, `41`, `43`, `44` you can probably set them all to `44`. This will allow the tag-generation script to generate ligher HTML code for the same results.
+In the Uncapped Images Page data, it's important to group together similar values of the `imgVW` column. So if you have values like `39`, `40`, `41`, you can probably set them all to `40`. This will allow the tag-generation script to generate ligher HTML code for the same results.
+
+### REPEAT FOR EACH WORKSHEET
+
+Do the above steps for each of the worksheets (Excel tabs).
+
 
 ### MULTIPLE PAGES REFINEMENT
 
@@ -72,19 +69,19 @@ If you do have similar `intrinsicWidth` values, group them by using one of the s
 This new sheet will also give you a list of all the dimensions (widths) as an outcome, to pass as a config to your image processing tool.
 
 
-### FEED BACK THE AUTOMATOR
-
-Once you've finished adjusting the _intrinsicWidth_ column, export data in the CSV format as `/data/{pageName}.csv`.
-
-
 ## GENERATE IMAGE TAGS
 
 Launch the server and visit pages to get the image tags you'd need.
 
 `npm run start`
 
-- Capped: http://localhost:8080/capped/
-- Uncapped: http://localhost:8080/uncapped/
+You can visit the pages at the URL
+
+```
+http://localhost:8080/page/{{ pagename }}/
+```
+
+`{{ pagename }}` being the name you used in `config/extraction.csv`
 
 Use developer tools to inspect the images, right-click, copy outerHtml
 
@@ -111,5 +108,5 @@ Test the generated tag to understand if browsers will download images of the int
 
 ## 🆘 HELP?
 
-- [This talk slides](https://docs.google.com/presentation/d/1YZLjXYK9G3arxiLBGKZeCaPIz032S-Mf5RFSFhbwyHo/edit#slide=id.g1015881022f_0_7) go through the process
-- Check out this (MISSING) video see the process in action!
+- [This talk slides](https://docs.google.com/presentation/d/1O_BQ0KuDTNV2WRryEJlmcyMiHNlVK4802K88PdrVEeo/edit?usp=sharing) go through the process
+- Check out this (COMING SOON) video see the process in action!
