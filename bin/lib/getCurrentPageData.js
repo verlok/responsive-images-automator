@@ -19,7 +19,7 @@ export default async function (page, extractionRule, fidelityCap) {
       ...resolution,
       [USAGE]: resolution.usage / 100,
       [IMG_WIDTH]: imgWidth,
-      [IMG_VW]: calcImgVW(imgWidth, resolution, 5),
+      [IMG_VW]: calcImgVW(imgWidth, resolution),
       [IDEAL_INTRINSIC_WIDTH]: calcIdealIntrinsicWidth(
         imgWidth,
         resolution,
