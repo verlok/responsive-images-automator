@@ -23,14 +23,14 @@ const calculateCappedWidths = (pageData, pxrCapping) => {
 
 export default (intrinsicWidthsConfig, pxrCap) => {
     const sortedWidthConfig = intrinsicWidthsConfig.sort(cappedCompareFn);
-    const sortedPlpImgWidths = calculateCappedWidths(sortedWidthConfig, pxrCap);
+    const sortedCappedImgWidths = calculateCappedWidths(sortedWidthConfig, pxrCap);
     const templateData = {
-        mobileImgWidth: sortedPlpImgWidths[0].widthAt2x,
+        mobileImgWidth: sortedCappedImgWidths[0].widthAt2x,
         mediaQueries: [],
-        legacyImgWidth: sortedPlpImgWidths[sortedPlpImgWidths.length - 1].widthAt1x
+        legacyImgWidth: sortedCappedImgWidths[sortedCappedImgWidths.length - 1].widthAt1x
     };
-    let prevImgWidths = `${sortedPlpImgWidths[0].widthAt1x}|${sortedPlpImgWidths[0].widthAt2x}`;
-    for (const row of sortedPlpImgWidths) {
+    let prevImgWidths = `${sortedCappedImgWidths[0].widthAt1x}|${sortedCappedImgWidths[0].widthAt2x}`;
+    for (const row of sortedCappedImgWidths) {
         const currentImgWidths = `${row.widthAt1x}|${row.widthAt2x}`;
         if (currentImgWidths !== prevImgWidths) {
             templateData.mediaQueries.push({

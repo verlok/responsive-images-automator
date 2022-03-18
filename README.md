@@ -48,7 +48,7 @@ The magic formulas you've pasted in the rightmost columns will guide you.
 
 - Try and reuse the `intrinsicWidth` in all other resolutions (rows)
 - Adjust `intrinsicWidth` where you see "POOR" or "BIG" indications in the `isOK` column. 
-  You can copy values from the `idealIntrinsicWidth_capped2x` column in PLP, `idealIntrinsicWidth` in PDP.
+  You can copy values from the `idealIntrinsicWidth_capped2x` column in PLP, `idealIntrinsicWidth` in uncapped images.
   You might accept a "BIG" on rarely used resolutions, e.g. 320@2x.
 - Now check: do you have similar `intrinsicWidth` values? 
   If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution. Do that and check again the `isOK` column and adjust where needed.
