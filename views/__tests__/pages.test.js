@@ -42,15 +42,15 @@ const testTables = {
   ],
 };
 
-for (const pageName of pageNames) {
-  const pageUrl = `http://localhost:8080/page/${pageName}`;
-  describe(`Testing ${pageName} page image`, () => {
-    beforeAll(async () => {
-      browser = await puppeteer.launch({
-        //headless: false
-      });
-    });
+beforeAll(async () => {
+  browser = await puppeteer.launch({
+    //headless: false
+  });
+});
 
+for (const pageName of pageNames) {
+  describe(`Testing ${pageName} page image`, () => {
+    const pageUrl = `http://localhost:8080/page/${pageName}`;
     test.each(testTables[pageName])(
       "When viewport width is $viewportWidth and pixel ratio is $pixelRatio, image intrinsic width should be $expectedIntrinsicWidth",
       async ({ viewportWidth, pixelRatio, expectedIntrinsicWidth }) => {
@@ -71,9 +71,9 @@ for (const pageName of pageNames) {
         );
       }
     );
-
-    afterAll(async () => {
-      await browser.close();
-    });
   });
 }
+
+afterAll(async () => {
+  await browser.close();
+});
