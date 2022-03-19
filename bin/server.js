@@ -1,6 +1,6 @@
 import express from "express";
-import prepareCappedImgModel from "./lib/cappedImageModel.js";
-import prepareUncappedImgModel from "./lib/uncappedImageModel.js";
+import buildCappedImgModel from "./lib/cappedImageModelBuilder.js";
+import buildUncappedImgModel from "./lib/uncappedImageModelBuilder.js";
 import worksheetToJson from "./lib/worksheetToJson.js";
 import getWorksheetNames from "./lib/getWorksheetNames.js";
 import welcomeMessage from "./lib/welcomeMessage.js";
@@ -26,10 +26,10 @@ const columnsToRead = [
   CHOSEN_INTRINSIC_WIDTH,
 ];
 
-const getImageModel = (isCapped, pageData) =>
+const buildImageModel = (isCapped, pageData) =>
   isCapped
-    ? prepareCappedImgModel(pageData, 2)
-    : prepareUncappedImgModel(pageData);
+    ? buildCappedImgModel(pageData, 2)
+    : buildUncappedImgModel(pageData);
 
 app.get("/page/:pageName", async function (req, res) {
   const requestedPageName = req.params.pageName;
@@ -42,7 +42,7 @@ app.get("/page/:pageName", async function (req, res) {
 
   const pageData = worksheetToJson(worksheet, columnsToRead);
   const isCapped = getIsCapped(requestedPageName);
-  const imageModel = getImageModel(isCapped, pageData);
+  const imageModel = buildImageModel(isCapped, pageData);
   const templateData = {
     image: imageModel,
     pageTitle: `${requestedPageName} page`,
