@@ -11,18 +11,18 @@ This tool is useful to:
 
 Extract images `width` in CSS pixels and in `vw` unit from pages, using puppeteer.
 
-### required config 
+### Config 
 
 - `config/resolutions.csv`
 - `config/extraction.csv`
 - `config/blacklisted_domains.js`
 - `config/blacklisted_paths.js`
 
-### command 
+### Command 
 
 `npm run extract`
 
-### output
+### Output
  
 Find the extracted data in `/data/datafile-extracted.xlsx`, one worksheet per row of the extraction page.
 
@@ -32,12 +32,12 @@ Find the extracted data in `/data/datafile-extracted.xlsx`, one worksheet per ro
 Defining the intrinsic width of the images would be your only manual step. 
 Don't panic, we got your back.
 
-### PREPARE THE CANVAS
+### Prepare the canvas
 
 - Open extracted data (`/data/datafile-extracted.xlsx`) in Excel
 - Save it with file name (`/data/datafile.xlsx`)
 
-### DEFINE INTRINSIC WIDTHS
+### Define intrinsic widths
 
 You'll need to define ideal images' intrinsic widths in order to have a few (5 or 6) final image dimensions and minimise waste.
 
@@ -47,16 +47,16 @@ Adjust `intrinsicWidth` where you see "POOR" or "BIG" indications in the `isOK` 
 
 Now check: do you have similar `intrinsicWidth` values? If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution. Do that and check again the `isOK` column and adjust where needed.
 
-### POLISH VW
+### Polish VW
 
 In the Uncapped Images Page data, it's important to group together similar values of the `imgVW` column. So if you have values like `39`, `40`, `41`, you can probably set them all to `40`. This will allow the tag-generation script to generate ligher HTML code for the same results.
 
-### REPEAT FOR EACH WORKSHEET
+### Repeat for each worksheet
 
 Do the above steps for each of the worksheets (Excel tabs).
 
 
-### MULTIPLE PAGES REFINEMENT
+### Multiple pages refinement
 
 Reusing the same dimensions across pages will leverage CDN cache and browser cache for all of your users.
 
@@ -73,38 +73,53 @@ This new sheet will also give you a list of all the dimensions (widths) as an ou
 
 Launch the server and visit pages to get the image tags you'd need.
 
-`npm run start`
+```zsh
+npm run start
+```
 
-You can visit the pages at the URL
+You can visit the pages at the URLs that will be displayed in the terminal.
 
 ```
 http://localhost:8080/page/{{ pagename }}/
 ```
 
-`{{ pagename }}` being the name you used in `config/extraction.csv`
+With `{{ pagename }}` being the name you used in `config/extraction.csv`
 
-Use developer tools to inspect the images, right-click, copy outerHtml
+Use developer tools to inspect the images, right-click, copy outerHtml.
 
 
 ## TEST GENERATED IMAGE TAGS
 
 Test the generated tag to understand if browsers will download images of the intrinsic width you selected.
  
-### required step
+### Command
 
-`npm run start`
-`npm run start:dev` for auto-reload with nodemon
+```zsh
+npm run start
+```
 
-### required config
+or, for auto-reload during development:
+
+```zsh
+npm run start:dev
+```
+
+### Test files
 
 - `views/__tests__/uncapped.ejs.test.js`
 - `views/__tests__/capped.ejs.test.js`
 
-### test (in another terminal window)
+### Test (in another terminal window)
 
-`npm run test`
-`npm run test:dev` for watch mode
+```zsh
+npm run test
+```
 
+or, for watch mode during development:
+
+```zsh
+npm run test:dev
+```
 
 ## 🆘 HELP?
 
