@@ -35,7 +35,10 @@ async function run(puppeteer) {
     createWorksheet(workbook, extraction[PAGE_NAME], augmentedPageData, fidelityCap);
   }
 
-  await workbook.xlsx.writeFile(`./data/datafile-extracted.xlsx`);
+  const fileName = "./data/datafile-extracted.xlsx";
+  await workbook.xlsx.writeFile(fileName);
+  console.log(`DONE! Data extracted in ${fileName}`)
+  
   await browser.close();
 }
 
