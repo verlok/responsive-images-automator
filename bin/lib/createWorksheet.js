@@ -5,6 +5,7 @@ import {
   RENDERED_TO_IDEAL_FIDELITY_RATIO,
   WASTE,
   USAGE,
+  PAGE_NAME,
 } from "./constants.js";
 
 function camelToSentence(camel) {
@@ -71,7 +72,7 @@ function fillWithFormulas(worksheet, lastRowNumber, fidelityCap) {
 }
 
 export default function (workbook, extractionRule, thisPageData, fidelityCap) {
-  const worksheet = workbook.addWorksheet(extractionRule.pageName);
+  const worksheet = workbook.addWorksheet(extractionRule[PAGE_NAME]);
   const columnKeys = getColumnKeys(thisPageData);
   const lastRowNumber = thisPageData.length + 1;
   worksheet.columns = getColumns(columnKeys);

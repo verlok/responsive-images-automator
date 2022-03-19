@@ -22,14 +22,14 @@ const getImageSizesAttr = (imageSizes) =>
     .join();
 
 const getImageSizesMediaQueries = (sortedWidths) => {
-  let prevImgVW = sortedWidths[0].imgVW;
+  let prevImgVW = sortedWidths[0][IMG_VW];
   const mediaQueries = [{ vw: prevImgVW }];
   for (const row of sortedWidths) {
-    const currentImgVW = row.imgVW;
+    const currentImgVW = row[IMG_VW];
     if (currentImgVW !== prevImgVW) {
       mediaQueries.unshift({
-        minWidth: row.viewportWidth,
-        vw: row.imgVW,
+        minWidth: row[VIEWPORT_WIDTH],
+        vw: currentImgVW,
       });
       prevImgVW = currentImgVW;
     }
@@ -47,9 +47,9 @@ export default (intrinsicWidthsConfig) => {
     sortedUncappedImgWidths
   );
   const templateData = {
-    imageWidths: dedupedImgWidths,
-    legacyImgWidth: dedupedImgWidths[dedupedImgWidths.length - 1],
-    imageSizesAttr: getImageSizesAttr(imageSizesMediaQueries),
+    widths: dedupedImgWidths,
+    legacyWidth: dedupedImgWidths[dedupedImgWidths.length - 1],
+    sizesAttr: getImageSizesAttr(imageSizesMediaQueries),
   };
   return templateData;
 };
