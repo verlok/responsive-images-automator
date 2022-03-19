@@ -18,7 +18,7 @@ export default async function (page, extractionRule, fidelityCap) {
     //await takeScreenshot(page, resolution, extractionRule);
     currentPageData.push({
       ...resolution,
-      [USAGE]: resolution.usage / 100,
+      [USAGE]: resolution[USAGE] / 100,
       [IMG_WIDTH]: imgWidth,
       [IMG_VW]: calcImgVW(imgWidth, resolution),
       [IDEAL_INTRINSIC_WIDTH]: calcIdealIntrinsicWidth(

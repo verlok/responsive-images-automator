@@ -22,14 +22,14 @@ const getImageSizesAttr = (imageSizes) =>
     .join();
 
 const getImageSizesMediaQueries = (sortedWidths) => {
-  let prevImgVW = sortedWidths[0].imgVW;
+  let prevImgVW = sortedWidths[0][IMG_VW];
   const mediaQueries = [{ vw: prevImgVW }];
   for (const row of sortedWidths) {
-    const currentImgVW = row.imgVW;
+    const currentImgVW = row[IMG_VW];
     if (currentImgVW !== prevImgVW) {
       mediaQueries.unshift({
-        minWidth: row.viewportWidth,
-        vw: row.imgVW,
+        minWidth: row[VIEWPORT_WIDTH],
+        vw: currentImgVW,
       });
       prevImgVW = currentImgVW;
     }

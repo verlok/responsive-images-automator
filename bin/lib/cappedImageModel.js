@@ -34,7 +34,7 @@ export default (intrinsicWidthsConfig, pxrCap) => {
         const currentImgWidths = `${row.widthAt1x}|${row.widthAt2x}`;
         if (currentImgWidths !== prevImgWidths) {
             templateData.mediaQueries.push({
-                minWidth: row.viewportWidth,
+                minWidth: row[VIEWPORT_WIDTH],
                 imgWidth1x: row.widthAt1x,
                 imgWidth2x: row.widthAt2x
             });
