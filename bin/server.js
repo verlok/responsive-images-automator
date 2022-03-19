@@ -48,6 +48,7 @@ app.get("/page/:pageName", async function (req, res) {
     pageTitle: `${requestedPageName} page`,
     imgAlt: `${requestedPageName} page image`,
   };
+  
   res.render(isCapped ? "capped.ejs" : "uncapped.ejs", templateData);
 });
 
