@@ -1,13 +1,16 @@
 # TO DO
 
 
-## VERSION 2
+## NEXT VERSIONS
 
-Fix HTML code generation.
-Make tests turn green again.
+Add a new Excel sheet with formulas to help users find unique intrinsic image widths.
+It should be `UNIQUE(TOCOL(A2:B12))`.
 
+---
 
-## VERSION 3
+`npm run extract` could export also current intrinsic widhts, to help you understand the current level of optimisation of your images.
+
+---
 
 Add `npm build:tests` to generate JEST files starting from the Excel data file.
 
