@@ -5,8 +5,15 @@ import {
   RENDERED_TO_IDEAL_FIDELITY_RATIO,
   WASTE,
   USAGE,
-  PAGE_NAME,
 } from "./constants.js";
+
+const evaluations = {
+  POOR: "POOR (--)",
+  BELOW: "(-)",
+  GOOD: "GOOD!",
+  ABOVE: "(+)",
+  BIG: "BIG (++)",
+};
 
 function camelToSentence(camel) {
   const result = camel.replace(/([A-Z])/g, " $1");
@@ -46,11 +53,6 @@ function getStyle(columnKey) {
       left: { style: "thin" },
       right: { style: "thin" },
     };
-    style["fill"] = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FFFFF1CC" },
-    };
   }
   return style;
 }
@@ -79,13 +81,66 @@ const autoWidth = (worksheet, minimalWidth = 1) => {
   });
 };
 
+const addConditionalFormatting = (worksheet, lastRowNumber) => {
+  worksheet.addConditionalFormatting({
+    ref: `G2:G${lastRowNumber}`,
+    rules: [
+      {
+        type: "expression",
+        formulae: [`J2="${evaluations.GOOD}"`],
+        style: {
+          fill: {
+            type: "pattern",
+            pattern: "solid",
+            bgColor: { argb: "FF99D07A" },
+          },
+        },
+      },
+      {
+        type: "expression",
+        formulae: [`J2="${evaluations.POOR}"`],
+        style: {
+          fill: {
+            type: "pattern",
+            pattern: "solid",
+            bgColor: { argb: "FFC0504D" },
+          },
+          font: { color: { argb: "FFFFFFFF" } },
+        },
+      },
+      {
+        type: "expression",
+        formulae: [`J2="${evaluations.BIG}"`],
+        style: {
+          fill: {
+            type: "pattern",
+            pattern: "solid",
+            bgColor: { argb: "FFC00000" },
+          },
+          font: { color: { argb: "FFFFFFFF" } },
+        },
+      },
+      {
+        type: "expression",
+        formulae: [`OR(J2="${evaluations.ABOVE}",J2="${evaluations.BELOW}")`],
+        style: {
+          fill: {
+            type: "pattern",
+            pattern: "solid",
+            bgColor: { argb: "FFD4EDD2" },
+          },
+        },
+      },
+    ],
+  });
+};
+
+const thresholdsFormula = `_xlfn.IFS(I2<0.9, "${evaluations.POOR}", I2<1, "${evaluations.BELOW}", I2=1, "${evaluations.GOOD}", I2>1.2, "${evaluations.BIG}", I2>1, "${evaluations.ABOVE}")`;
+
 function fillWithFormulas(worksheet, lastRowNumber, fidelityCap) {
   worksheet.fillFormula(`H2:H${lastRowNumber}`, "G2/D2");
   worksheet.fillFormula(`I2:I${lastRowNumber}`, `H2/MIN(${fidelityCap}, C2)`);
-  worksheet.fillFormula(
-    `J2:J${lastRowNumber}`,
-    '_xlfn.IFS(I2<0.9, "POOR! (--)", I2<1, "(-)", I2=1, "OK", I2>1.2, "BIG (++)", I2>1, "(+)")'
-  );
+  worksheet.fillFormula(`J2:J${lastRowNumber}`, thresholdsFormula);
   worksheet.fillFormula(`K2:K${lastRowNumber}`, "(I2-1)*A2");
 }
 
@@ -97,4 +152,5 @@ export default function (workbook, pageName, thisPageData, fidelityCap) {
   worksheet.addRows(thisPageData);
   fillWithFormulas(worksheet, lastRowNumber, fidelityCap);
   autoWidth(worksheet);
+  addConditionalFormatting(worksheet, lastRowNumber);
 }
