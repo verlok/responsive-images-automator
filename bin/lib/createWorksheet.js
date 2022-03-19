@@ -36,15 +36,33 @@ function getColumnKeys(thisPageData) {
   ];
 }
 
+function getStyle(columnKey) {
+  const style = {
+    numFmt: getNumberFormat(columnKey),
+  };
+  if (columnKey === CHOSEN_INTRINSIC_WIDTH) {
+    style["font"] = { bold: true };
+    style["border"] = {
+      left: { style: "thin" },
+      right: { style: "thin" },
+    };
+    style["fill"] = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "FFFFF1CC" },
+    };
+  }
+  return style;
+}
+
 function getColumns(columnKeys) {
-  return columnKeys.map((key) => ({
-    key,
-    header: key, //camelToSentence(key),
-    style: {
-      font: { bold: key === CHOSEN_INTRINSIC_WIDTH },
-      numFmt: getNumberFormat(key),
-    },
-  }));
+  return columnKeys.map((key) => {
+    return {
+      key,
+      header: key, //camelToSentence(key),
+      style: getStyle(key),
+    };
+  });
 }
 
 const autoWidth = (worksheet, minimalWidth = 1) => {
