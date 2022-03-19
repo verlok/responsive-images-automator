@@ -2,6 +2,9 @@ import express from "express";
 import prepareCappedImgModel from "./lib/cappedImageModel.js";
 import prepareUncappedImgModel from "./lib/uncappedImageModel.js";
 import worksheetToJson from "./lib/worksheetToJson.js";
+import getWorksheetNames from "./lib/getWorksheetNames.js";
+import welcomeMessage from "./lib/welcomeMessage.js";
+import getIsCapped from "./lib/getIsCapped.js";
 import {
   CHOSEN_INTRINSIC_WIDTH,
   IMG_VW,
@@ -9,17 +12,21 @@ import {
   VIEWPORT_WIDTH,
 } from "./lib/constants.js";
 import ExcelJS from "exceljs";
-import { extractionRules } from "./lib/readCsvConfig.js";
 
 const app = express();
 const port = 8080;
-
 app.set("view engine", "ejs");
 
-app.get("/page/:pageName", async function (req, res) {
-  const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile("./data/datafile.xlsx");
+const workbook = new ExcelJS.Workbook();
+const sheetNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
+const columnsToRead = [
+  IMG_VW,
+  VIEWPORT_WIDTH,
+  PIXEL_RATIO,
+  CHOSEN_INTRINSIC_WIDTH,
+];
 
+app.get("/page/:pageName", async function (req, res) {
   const pageName = req.params.pageName;
   const worksheet = workbook.getWorksheet(pageName);
 
@@ -28,15 +35,9 @@ app.get("/page/:pageName", async function (req, res) {
     return;
   }
 
-  const pageData = worksheetToJson(worksheet, [
-    IMG_VW,
-    VIEWPORT_WIDTH,
-    PIXEL_RATIO,
-    CHOSEN_INTRINSIC_WIDTH,
-  ]);
+  const pageData = worksheetToJson(worksheet, columnsToRead);
+  const isCapped = getIsCapped(pageName);
 
-  const thisPageRule = extractionRules.find(rule => rule.pageName === pageName)
-  const isCapped = thisPageRule.capTo2x === 'true';
   const templateData = isCapped
     ? prepareCappedImgModel(pageData, 2)
     : prepareUncappedImgModel(pageData);
@@ -46,6 +47,9 @@ app.get("/page/:pageName", async function (req, res) {
 });
 
 app.listen(port, function (error) {
-  if (error) throw error;
-  else console.log("Server is running");
+  if (error) {
+    throw error;
+    return;
+  }
+  welcomeMessage(port, sheetNames);
 });
