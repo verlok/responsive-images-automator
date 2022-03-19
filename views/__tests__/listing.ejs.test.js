@@ -10,27 +10,26 @@ describe("Testing listing page images", () => {
     });
   });
 
-  test.each`
-    viewportWidth | pixelRatio | intrinsicWidth
-    ${375}        | ${3}       | ${380}
-    ${414}        | ${2}       | ${380}
-    ${390}        | ${3}       | ${380}
-    ${375}        | ${2}       | ${380}
-    ${414}        | ${3}       | ${380}
-    ${360}        | ${3}       | ${380}
-    ${428}        | ${3}       | ${380}
-    ${1920}       | ${1}       | ${450}
-    ${412}        | ${2.63}    | ${380}
-    ${1440}       | ${2}       | ${678}
-    ${1366}       | ${1}       | ${380}
-    ${360}        | ${2}       | ${380}
-    ${768}        | ${2}       | ${678}
-    ${393}        | ${2.75}    | ${380}
-    ${1536}       | ${1.25}    | ${450}
-    ${320}        | ${2}       | ${380}
-  `(
-    `When viewport width is $viewportWidth and pixel ratio is $pixelRatio, image intrinsic width should be $intrinsicWidth`,
-    async ({ viewportWidth, pixelRatio, intrinsicWidth }) => {
+  test.each([
+    { viewportWidth: 375, pixelRatio: 3, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 414, pixelRatio: 2, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 390, pixelRatio: 3, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 375, pixelRatio: 2, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 414, pixelRatio: 3, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 360, pixelRatio: 3, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 428, pixelRatio: 3, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 1920, pixelRatio: 1, expectedIntrinsicWidth: 450 },
+    { viewportWidth: 412, pixelRatio: 2.63, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 1440, pixelRatio: 2, expectedIntrinsicWidth: 678 },
+    { viewportWidth: 1366, pixelRatio: 1, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 360, pixelRatio: 2, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 768, pixelRatio: 2, expectedIntrinsicWidth: 678 },
+    { viewportWidth: 393, pixelRatio: 2.75, expectedIntrinsicWidth: 380 },
+    { viewportWidth: 1536, pixelRatio: 1.25, expectedIntrinsicWidth: 450 },
+    { viewportWidth: 320, pixelRatio: 2, expectedIntrinsicWidth: 380 },
+  ])(
+    "When viewport width is $viewportWidth and pixel ratio is $pixelRatio, image intrinsic width should be $intrinsicWidth",
+    async ({ viewportWidth, pixelRatio, expectedIntrinsicWidth }) => {
       const page = await browser.newPage();
       await page.setCacheEnabled(false);
       await page.setViewport({
@@ -44,7 +43,7 @@ describe("Testing listing page images", () => {
       //await page.screenshot({ path: `listing-${viewportWidth}@${pixelRatio}.png` });
       const body = await page.$("body");
       expect(await body.$eval("img", (img) => img.currentSrc)).toBe(
-        `https://via.placeholder.com/${intrinsicWidth}`
+        `https://via.placeholder.com/${expectedIntrinsicWidth}`
       );
     }
   );
