@@ -1,7 +1,7 @@
-import { getExtractionRules } from "./readConfig.js";
+import { getExtractionConfig } from "./readConfig.js";
 import { CAP_TO_2X, PAGE_NAME } from "./constants.js";
 
-const extractionRules = await getExtractionRules();
+const extractionRules = await getExtractionConfig();
 export default function (pageName) {
   const thisPageRule = extractionRules.find(
     (rule) => rule[PAGE_NAME] === pageName
