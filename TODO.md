@@ -12,7 +12,7 @@ It should be `UNIQUE(TOCOL(A2:B12))`.
 
 ---
 
-Add `npm build:tests` to generate JEST files starting from the Excel data file.
+Find a way to run tests based on an extraction of requirements form the Excel data file. Started on branch `feature/dynamic-tests`.
 
 ---
 
