@@ -11,9 +11,9 @@
     <h1><%= pageTitle %></h1>
     <img
       alt="<%= imgAlt %>"
-      src="https://via.placeholder.com/<%= legacyImgWidth %>"
-      srcset="<%= imageWidths.map((imageWidth) => (`https://via.placeholder.com/${imageWidth} ${imageWidth}w`)).join() %>"
-      sizes="<%= imageSizesAttr %>"
+      src="https://via.placeholder.com/<%= image.legacyWidth %>"
+      srcset="<%= image.widths.map((imageWidth) => (`https://via.placeholder.com/${imageWidth} ${imageWidth}w`)).join() %>"
+      sizes="<%= image.sizesAttr %>"
     />
   </body>
 </html>

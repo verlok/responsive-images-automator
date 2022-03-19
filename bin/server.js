@@ -26,23 +26,28 @@ const columnsToRead = [
   CHOSEN_INTRINSIC_WIDTH,
 ];
 
+const getImageModel = (isCapped, pageData) =>
+  isCapped
+    ? prepareCappedImgModel(pageData, 2)
+    : prepareUncappedImgModel(pageData);
+
 app.get("/page/:pageName", async function (req, res) {
-  const pageName = req.params.pageName;
-  const worksheet = workbook.getWorksheet(pageName);
+  const requestedPageName = req.params.pageName;
+  const worksheet = workbook.getWorksheet(requestedPageName);
 
   if (!worksheet) {
-    res.render("notFound.ejs", { pageName });
+    res.render("notFound.ejs", { pageName: requestedPageName });
     return;
   }
 
   const pageData = worksheetToJson(worksheet, columnsToRead);
-  const isCapped = getIsCapped(pageName);
-
-  const templateData = isCapped
-    ? prepareCappedImgModel(pageData, 2)
-    : prepareUncappedImgModel(pageData);
-  templateData.pageTitle = `${pageName} page`;
-  templateData.imgAlt = `${pageName} page image`;
+  const isCapped = getIsCapped(requestedPageName);
+  const imageModel = getImageModel(isCapped, pageData);
+  const templateData = {
+    image: imageModel,
+    pageTitle: `${requestedPageName} page`,
+    imgAlt: `${requestedPageName} page image`,
+  };
   res.render(isCapped ? "capped.ejs" : "uncapped.ejs", templateData);
 });
 

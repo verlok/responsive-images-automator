@@ -47,9 +47,9 @@ export default (intrinsicWidthsConfig) => {
     sortedUncappedImgWidths
   );
   const templateData = {
-    imageWidths: dedupedImgWidths,
-    legacyImgWidth: dedupedImgWidths[dedupedImgWidths.length - 1],
-    imageSizesAttr: getImageSizesAttr(imageSizesMediaQueries),
+    widths: dedupedImgWidths,
+    legacyWidth: dedupedImgWidths[dedupedImgWidths.length - 1],
+    sizesAttr: getImageSizesAttr(imageSizesMediaQueries),
   };
   return templateData;
 };
