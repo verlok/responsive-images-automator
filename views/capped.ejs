@@ -9,15 +9,15 @@
 
   <body>
     <h1><%= pageTitle %></h1>
-    <% if (mediaQueries.length === 0) { %>
+    <% if (image.mediaQueries.length === 0) { %>
     <img
       alt="<%= imgAlt %>"
-      src="https://via.placeholder.com/<%= legacyImgWidth %>"
-      srcset="https://via.placeholder.com/<%= mobileImgWidth %> 2x"
+      src="https://via.placeholder.com/<%= image.legacyImgWidth %>"
+      srcset="https://via.placeholder.com/<%= image.mobileImgWidth %> 2x"
     />
     <% } else { %>
     <picture>
-      <% mediaQueries.forEach((mqObject) => { %>
+      <% image.mediaQueries.forEach((mqObject) => { %>
       <source
         media="(min-width: <%= mqObject.minWidth %>px)"
         srcset="https://via.placeholder.com/<%= mqObject.imgWidth1x %> 1x,
@@ -26,8 +26,8 @@
       <% }) %>
       <img
         alt="<%= imgAlt %>"
-        src="https://via.placeholder.com/<%= legacyImgWidth %>"
-        srcset="https://via.placeholder.com/<%= mobileImgWidth %> 2x"
+        src="https://via.placeholder.com/<%= image.legacyImgWidth %>"
+        srcset="https://via.placeholder.com/<%= image.mobileImgWidth %> 2x"
       />
     </picture>
     <% } %>
