@@ -1,6 +1,10 @@
+export const PAGE_NAME = "pageName";
+export const PAGE_URL = "pageUrl";
+export const IMAGE_CSS_SELECTOR = "imageCssSelector";
 export const USAGE = "usage";
 export const VIEWPORT_WIDTH = "viewportWidth";
 export const PIXEL_RATIO = "pixelRatio";
+export const CAP_TO_2X = "capTo2x";
 export const IMG_WIDTH = "imgWidth";
 export const IMG_VW = "imgVW";
 export const IDEAL_INTRINSIC_WIDTH = "idealIntrinsicWidth";

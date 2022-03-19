@@ -1,12 +1,14 @@
-import { extractionRules } from "./readCsvConfig.js";
+import { getExtractionRules } from "./readConfig.js";
+import { CAP_TO_2X, PAGE_NAME } from "./constants.js";
 
+const extractionRules = await getExtractionRules();
 export default function (pageName) {
   const thisPageRule = extractionRules.find(
-    (rule) => rule.pageName === pageName
+    (rule) => rule[PAGE_NAME] === pageName
   );
   if (!thisPageRule) {
     return null;
   }
-  const isCapped = thisPageRule.capTo2x === "true";
+  const isCapped = thisPageRule[CAP_TO_2X] === "true";
   return isCapped;
 }
