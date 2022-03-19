@@ -12,22 +12,22 @@
     <% if (image.mediaQueries.length === 0) { %>
     <img
       alt="<%= imgAlt %>"
-      src="https://via.placeholder.com/<%= image.legacyImgWidth %>"
-      srcset="https://via.placeholder.com/<%= image.mobileImgWidth %> 2x"
+      src="https://via.placeholder.com/<%= image.legacyWidth %>"
+      srcset="https://via.placeholder.com/<%= image.mobileWidth %> 2x"
     />
     <% } else { %>
     <picture>
       <% image.mediaQueries.forEach((mqObject) => { %>
       <source
         media="(min-width: <%= mqObject.minWidth %>px)"
-        srcset="https://via.placeholder.com/<%= mqObject.imgWidth1x %> 1x,
-                https://via.placeholder.com/<%= mqObject.imgWidth2x %> 2x"
+        srcset="https://via.placeholder.com/<%= mqObject.widthAt1x %> 1x,
+                https://via.placeholder.com/<%= mqObject.widthAt2x %> 2x"
       />
       <% }) %>
       <img
         alt="<%= imgAlt %>"
-        src="https://via.placeholder.com/<%= image.legacyImgWidth %>"
-        srcset="https://via.placeholder.com/<%= image.mobileImgWidth %> 2x"
+        src="https://via.placeholder.com/<%= image.legacyWidth %>"
+        srcset="https://via.placeholder.com/<%= image.mobileWidth %> 2x"
       />
     </picture>
     <% } %>
