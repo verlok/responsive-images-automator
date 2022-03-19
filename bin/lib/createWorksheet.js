@@ -81,56 +81,39 @@ const autoWidth = (worksheet, minimalWidth = 1) => {
   });
 };
 
+function getConditionalFormattingRule(formula, bgColor, isWhiteText) {
+  const style = {
+    fill: {
+      type: "pattern",
+      pattern: "solid",
+      bgColor: { argb: bgColor },
+    },
+  };
+  if (isWhiteText) {
+    style["font"] = { color: { argb: "FFFFFFFF" } };
+  }
+  return {
+    type: "expression",
+    formulae: [formula],
+    style,
+  };
+}
+
 const addConditionalFormatting = (worksheet, lastRowNumber) => {
   worksheet.addConditionalFormatting({
     ref: `G2:G${lastRowNumber}`,
     rules: [
-      {
-        type: "expression",
-        formulae: [`J2="${evaluations.GOOD}"`],
-        style: {
-          fill: {
-            type: "pattern",
-            pattern: "solid",
-            bgColor: { argb: "FF99D07A" },
-          },
-        },
-      },
-      {
-        type: "expression",
-        formulae: [`J2="${evaluations.POOR}"`],
-        style: {
-          fill: {
-            type: "pattern",
-            pattern: "solid",
-            bgColor: { argb: "FFC0504D" },
-          },
-          font: { color: { argb: "FFFFFFFF" } },
-        },
-      },
-      {
-        type: "expression",
-        formulae: [`J2="${evaluations.BIG}"`],
-        style: {
-          fill: {
-            type: "pattern",
-            pattern: "solid",
-            bgColor: { argb: "FFC00000" },
-          },
-          font: { color: { argb: "FFFFFFFF" } },
-        },
-      },
-      {
-        type: "expression",
-        formulae: [`OR(J2="${evaluations.ABOVE}",J2="${evaluations.BELOW}")`],
-        style: {
-          fill: {
-            type: "pattern",
-            pattern: "solid",
-            bgColor: { argb: "FFD4EDD2" },
-          },
-        },
-      },
+      getConditionalFormattingRule(`J2="${evaluations.GOOD}"`, "FF99D07A"),
+      getConditionalFormattingRule(
+        `J2="${evaluations.POOR}"`,
+        "FFC0504D",
+        true
+      ),
+      getConditionalFormattingRule(`J2="${evaluations.BIG}"`, "FFC00000", true),
+      getConditionalFormattingRule(
+        `OR(J2="${evaluations.ABOVE}",J2="${evaluations.BELOW}")`,
+        "FFD4EDD2"
+      ),
     ],
   });
 };
