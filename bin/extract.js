@@ -6,10 +6,10 @@ import blacklistedPaths from "../config/blacklisted_paths.js";
 import blockBlacklistedRequests from "./lib/blockBlacklistedRequests.js";
 import { getExtractionConfig, getResolutions } from "./lib/readConfig.js";
 import navigateTo from "./lib/navigateTo.js";
-import addChosenIntrinsicWidths from "./lib/addChosenIntrinsicWidths.js";
-import getCurrentPageData from "./lib/getCurrentPageData.js";
+import augmentPageData from "./lib/augmentPageData.js";
+import extractPageData from "./lib/extractPageData.js";
 import createWorksheet from "./lib/createWorksheet.js";
-import { CAP_TO_2X, PAGE_URL } from "./lib/constants.js";
+import { CAP_TO_2X, PAGE_NAME, PAGE_URL } from "./lib/constants.js";
 
 async function run(puppeteer) {
   const browser = await puppeteer.launch({ headless: false });
@@ -22,17 +22,17 @@ async function run(puppeteer) {
   for (const extraction of extractionConfig) {
     await navigateTo(page, extraction[PAGE_URL]);
     const fidelityCap = extraction[CAP_TO_2X] === "true" ? 2 : 3;
-    const partialCurrentPageData = await getCurrentPageData(
+    const extractedPageData = await extractPageData(
       resolutions,
       page,
       extraction,
       fidelityCap
     );
-    const currentPageData = addChosenIntrinsicWidths(
-      partialCurrentPageData,
+    const augmentedPageData = augmentPageData(
+      extractedPageData,
       fidelityCap
     );
-    createWorksheet(workbook, extraction, currentPageData, fidelityCap);
+    createWorksheet(workbook, extraction[PAGE_NAME], augmentedPageData, fidelityCap);
   }
 
   await workbook.xlsx.writeFile(`./data/datafile-extracted.xlsx`);

@@ -71,8 +71,8 @@ function fillWithFormulas(worksheet, lastRowNumber, fidelityCap) {
   worksheet.fillFormula(`K2:K${lastRowNumber}`, "(I2-1)*A2");
 }
 
-export default function (workbook, extractionRule, thisPageData, fidelityCap) {
-  const worksheet = workbook.addWorksheet(extractionRule[PAGE_NAME]);
+export default function (workbook, pageName, thisPageData, fidelityCap) {
+  const worksheet = workbook.addWorksheet(pageName);
   const columnKeys = getColumnKeys(thisPageData);
   const lastRowNumber = thisPageData.length + 1;
   worksheet.columns = getColumns(columnKeys);
