@@ -1,9 +1,8 @@
-import { IMAGE_CSS_SELECTOR, PIXEL_RATIO, VIEWPORT_WIDTH } from "./constants.js";
+import { PIXEL_RATIO, VIEWPORT_WIDTH } from "./constants.js";
 
-export default async function (page, resolution, extractionRule) {
+export default async function (page, resolution, imageCssSelector) {
   const viewportWidth = resolution[VIEWPORT_WIDTH];
   const pixelRatio = resolution[PIXEL_RATIO];
-  const imageCssSelector = extractionRule[IMAGE_CSS_SELECTOR];
   const viewportOptions = {
     width: viewportWidth,
     deviceScaleFactor: pixelRatio,

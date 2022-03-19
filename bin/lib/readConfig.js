@@ -11,6 +11,6 @@ export async function getResolutions() {
   }).fromFile("./config/resolutions.csv");
 }
 
-export async function getExtractionRules() {
+export async function getExtractionConfig() {
   return await csvToJson().fromFile("./config/extraction.csv");
 }
