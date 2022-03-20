@@ -1,14 +1,18 @@
 # TO DO
 
+## CURRENT VERSION
+
+`npm run extract` exports also current intrinsic widhts, to help you understand the current level of optimisation of your images.
+
+FIX: must fix Excel formulas so they get relatively positioned in columns depending on the number of previously occupied columns.
+
+BUG: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions
+
 
 ## NEXT VERSIONS
 
 Add a new Excel sheet with formulas to help users find unique intrinsic image widths.
 It should be `UNIQUE(TOCOL(A2:B12))`.
-
----
-
-`npm run extract` could export also current intrinsic widhts, to help you understand the current level of optimisation of your images.
 
 ---
 

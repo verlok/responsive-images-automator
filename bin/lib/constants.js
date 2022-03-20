@@ -7,6 +7,7 @@ export const PIXEL_RATIO = "pixelRatio";
 export const CAP_TO_2X = "capTo2x";
 export const IMG_WIDTH = "imgWidth";
 export const IMG_VW = "imgVW";
+export const CURRENT_INTRINSIC_WIDTH = "currentIntrinsicWidth";
 export const IDEAL_INTRINSIC_WIDTH = "idealIntrinsicWidth";
 export const CHOSEN_INTRINSIC_WIDTH = "chosenIntrinsicWidth";
 export const RENDERED_FIDELITY = "renderedFidelity";
