@@ -24,18 +24,20 @@ Extract images `width` in CSS pixels and in `vw` unit from pages, using puppetee
 
 ### Output
  
-Find the extracted data in `/data/datafile-extracted.xlsx`, one worksheet per row of the extraction page.
+Find the extracted data in `/data/datafile.xlsx`, one worksheet per row of the extraction page.
 
+## UNDERSTAND HOW YOUR IMAGES ARE OPTIMISED
+
+In the `currentIntrinsicWidth` find the current intrinsic width of your images. See as they are optimised.
 
 ## ADD INTRINSIC WIDTHS
 
 Defining the intrinsic width of the images would be your only manual step. 
 Don't panic, we got your back.
 
-### Prepare the canvas
+### Open the data file
 
-- Open extracted data (`/data/datafile-extracted.xlsx`) in Excel
-- Save it with file name (`/data/datafile.xlsx`)
+Open extracted data (`/data/datafile.xlsx`) in Excel.
 
 ### Define intrinsic widths
 
