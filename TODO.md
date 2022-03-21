@@ -1,5 +1,12 @@
 # TO DO
 
+## CURRENT VERSION
+
+`npm run extract` exports also current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
+
+BUG: fix tests, they're now using old column names
+
+BUG: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions
 
 ## NEXT VERSIONS
 
@@ -8,11 +15,7 @@ It should be `UNIQUE(TOCOL(A2:B12))`.
 
 ---
 
-`npm run extract` could export also current intrinsic widhts, to help you understand the current level of optimisation of your images.
-
----
-
-Add `npm build:tests` to generate JEST files starting from the Excel data file.
+Find a way to run tests based on an extraction of requirements form the Excel data file. Started on branch `feature/dynamic-tests`.
 
 ---
 
