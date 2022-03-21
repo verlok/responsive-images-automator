@@ -81,12 +81,23 @@ function getStyle(columnKey) {
   const style = {
     numFmt: getNumberFormat(columnKey),
   };
-  if (columnKey === CHOSEN_INTRINSIC_WIDTH) {
-    style["font"] = { bold: true };
-    style["border"] = {
-      left: { style: "thin" },
-      right: { style: "thin" },
-    };
+  switch (columnKey) {
+    case CURRENT_INTRINSIC_WIDTH:
+      style["border"] = {
+        left: { style: "thin" },
+      };
+      break;
+    case IDEAL_INTRINSIC_WIDTH:
+      style["border"] = {
+        left: { style: "double" },
+      };
+
+      break;
+    case CHOSEN_INTRINSIC_WIDTH:
+      style["font"] = { bold: true };
+      break;
+    default:
+      // do nothing
   }
   return style;
 }
@@ -102,9 +113,9 @@ function getColumns(columnKeys) {
 }
 
 const autoWidth = (worksheet) => {
-  worksheet.columns.forEach(column => {
-    const lengths = column.values.map(v => v.toString().length);
-    const maxLength = Math.max(...lengths.filter(v => typeof v === 'number'));
+  worksheet.columns.forEach((column) => {
+    const lengths = column.values.map((v) => v.toString().length);
+    const maxLength = Math.max(...lengths.filter((v) => typeof v === "number"));
     column.width = maxLength;
   });
 };

@@ -37,7 +37,7 @@ async function run(puppeteer) {
     );
   }
 
-  const fileName = "./data/datafile-extracted.xlsx";
+  const fileName = "./data/datafile.xlsx";
   await workbook.xlsx.writeFile(fileName);
   console.log(`DONE! Data extracted in ${fileName}`);
 
