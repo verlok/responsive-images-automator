@@ -1,2 +1,2 @@
 pageName,pageUrl,imageCssSelector,capTo2x
-home,https://webpagetest.org/,body > div.home_feature > div > div > div.home_feature_hed_visual > img,true
+home,https://www.schwarzkopf.de/,#ratiobackground-822a83bf5a > picture > img,true
