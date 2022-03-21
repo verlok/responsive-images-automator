@@ -1,9 +1,9 @@
 const puppeteer = require("puppeteer");
-const pageUrl = "http://127.0.0.1:8080/page/listing";
+const pageUrl = "http://127.0.0.1:8080/page/home";
 
 let browser;
 
-describe("Testing listing page images", () => {
+describe("Testing home page images", () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({
       //headless: false
@@ -12,22 +12,22 @@ describe("Testing listing page images", () => {
 
   test.each`
     viewportWidth | pixelRatio | intrinsicWidth
-    ${375}        | ${3}       | ${380}
-    ${414}        | ${2}       | ${380}
-    ${390}        | ${3}       | ${380}
-    ${375}        | ${2}       | ${380}
-    ${414}        | ${3}       | ${380}
-    ${360}        | ${3}       | ${380}
-    ${428}        | ${3}       | ${380}
-    ${1920}       | ${1}       | ${450}
-    ${412}        | ${2.63}    | ${380}
-    ${1440}       | ${2}       | ${678}
-    ${1366}       | ${1}       | ${380}
-    ${360}        | ${2}       | ${380}
-    ${768}        | ${2}       | ${678}
-    ${393}        | ${2.75}    | ${380}
-    ${1536}       | ${1.25}    | ${450}
-    ${320}        | ${2}       | ${380}
+    ${375}        | ${3}       | ${708}
+    ${414}        | ${2}       | ${708}
+    ${390}        | ${3}       | ${708}
+    ${375}        | ${2}       | ${708}
+    ${414}        | ${3}       | ${708}
+    ${360}        | ${3}       | ${708}
+    ${428}        | ${3}       | ${708}
+    ${1920}       | ${1}       | ${560}
+    ${412}        | ${2.63}    | ${708}
+    ${1440}       | ${2}       | ${1076}
+    ${1366}       | ${1}       | ${560}
+    ${360}        | ${2}       | ${708}
+    ${768}        | ${2}       | ${560}
+    ${393}        | ${2.75}    | ${708}
+    ${1536}       | ${1.25}    | ${708}
+    ${320}        | ${2}       | ${560}
   `(
     `When viewport width is $viewportWidth and pixel ratio is $pixelRatio, image intrinsic width should be $intrinsicWidth`,
     async ({ viewportWidth, pixelRatio, intrinsicWidth }) => {
