@@ -1,2 +1,3 @@
 pageName,pageUrl,imageCssSelector,capTo2x
-home,https://webpagetest.org/,body > div.home_feature > div > div > div.home_feature_hed_visual > img,true
+webdev-home,https://web.dev/,#main > div > header > div > div > div.flow > a:nth-child(2) > img,true
+webdev-mainline,https://web.dev/mainline-mensware/,#main > img,false
