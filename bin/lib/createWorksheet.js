@@ -34,7 +34,7 @@ const columns = {
   [CURRENT_INTRINSIC_WIDTH]: "F",
   [CURRENT_RENDERED_FIDELITY]: "G",
   [CURRENT_RTI_FIDELITY_RATIO]: "H",
-  [CURRENT_EVALUATION]: "I", //missing
+  [CURRENT_EVALUATION]: "I",
   [CURRENT_WASTE]: "J",
   [IDEAL_INTRINSIC_WIDTH]: "K",
   [CHOSEN_INTRINSIC_WIDTH]: "L",
@@ -101,17 +101,11 @@ function getColumns(columnKeys) {
   });
 }
 
-const autoWidth = (worksheet, minimalWidth = 1) => {
-  worksheet.columns.forEach((column) => {
-    let maxColumnLength = 0;
-    column.eachCell({ includeEmpty: true }, (cell) => {
-      maxColumnLength = Math.max(
-        maxColumnLength,
-        minimalWidth,
-        cell.value ? cell.value.toString().length : 0
-      );
-    });
-    column.width = maxColumnLength;
+const autoWidth = (worksheet) => {
+  worksheet.columns.forEach(column => {
+    const lengths = column.values.map(v => v.toString().length);
+    const maxLength = Math.max(...lengths.filter(v => typeof v === 'number'));
+    column.width = maxLength;
   });
 };
 
@@ -279,7 +273,6 @@ export default function (workbook, pageName, thisPageData, fidelityCap) {
   const columnKeys = [...Object.keys(columns)];
   const lastRowNumber = thisPageData.length + 1;
   worksheet.columns = getColumns(columnKeys);
-  console.log(getColumns(columnKeys));
   worksheet.addRows(thisPageData);
   fillWithFormulas(worksheet, lastRowNumber, fidelityCap);
   autoWidth(worksheet);

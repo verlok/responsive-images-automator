@@ -28,17 +28,19 @@ async function run(puppeteer) {
       extraction,
       fidelityCap
     );
-    const augmentedPageData = augmentPageData(
-      extractedPageData,
+    const augmentedPageData = augmentPageData(extractedPageData, fidelityCap);
+    createWorksheet(
+      workbook,
+      extraction[PAGE_NAME],
+      augmentedPageData,
       fidelityCap
     );
-    createWorksheet(workbook, extraction[PAGE_NAME], augmentedPageData, fidelityCap);
   }
 
   const fileName = "./data/datafile-extracted.xlsx";
   await workbook.xlsx.writeFile(fileName);
-  console.log(`DONE! Data extracted in ${fileName}`)
-  
+  console.log(`DONE! Data extracted in ${fileName}`);
+
   await browser.close();
 }
 
