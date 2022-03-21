@@ -1,9 +1,9 @@
 import {
   CHOSEN_INTRINSIC_WIDTH,
-  EVALUATION,
-  RENDERED_FIDELITY,
-  RENDERED_TO_IDEAL_FIDELITY_RATIO,
-  WASTE,
+  CHOSEN_EVALUATION,
+  CHOSEN_RENDERED_FIDELITY,
+  CHOSEN_RTI_FIDELITY_RATIO,
+  CHOSEN_WASTE,
   USAGE,
   VIEWPORT_WIDTH,
   PIXEL_RATIO,
@@ -11,6 +11,10 @@ import {
   IMG_VW,
   CURRENT_INTRINSIC_WIDTH,
   IDEAL_INTRINSIC_WIDTH,
+  CURRENT_EVALUATION,
+  CURRENT_RENDERED_FIDELITY,
+  CURRENT_RTI_FIDELITY_RATIO,
+  CURRENT_WASTE,
 } from "./constants.js";
 
 const evaluations = {
@@ -28,18 +32,17 @@ const columns = {
   [IMG_WIDTH]: "D",
   [IMG_VW]: "E",
   [CURRENT_INTRINSIC_WIDTH]: "F",
-  [IDEAL_INTRINSIC_WIDTH]: "G",
-  [CHOSEN_INTRINSIC_WIDTH]: "H",
-  [RENDERED_FIDELITY]: "I",
-  [RENDERED_TO_IDEAL_FIDELITY_RATIO]: "J",
-  [EVALUATION]: "K",
-  [WASTE]: "L",
-};
-/* "M",
-  "N",
-  "O",
-  "P",
-  "Q",
+  [CURRENT_RENDERED_FIDELITY]: "G",
+  [CURRENT_RTI_FIDELITY_RATIO]: "H",
+  [CURRENT_EVALUATION]: "I", //missing
+  [CURRENT_WASTE]: "J",
+  [IDEAL_INTRINSIC_WIDTH]: "K",
+  [CHOSEN_INTRINSIC_WIDTH]: "L",
+  [CHOSEN_RENDERED_FIDELITY]: "M",
+  [CHOSEN_RTI_FIDELITY_RATIO]: "N",
+  [CHOSEN_EVALUATION]: "O",
+  [CHOSEN_WASTE]: "P",
+  /* "Q",
   "R",
   "S",
   "T",
@@ -48,8 +51,10 @@ const columns = {
   "W",
   "X",
   "Y",
-  "Z",
-]; */
+  "Z", */
+};
+
+const startRowNumber = 2;
 
 function camelToSentence(camel) {
   const result = camel.replace(/([A-Z])/g, " $1");
@@ -59,24 +64,17 @@ function camelToSentence(camel) {
 function getNumberFormat(key) {
   switch (key) {
     case USAGE:
-    case WASTE:
+    case CURRENT_WASTE:
+    case CHOSEN_WASTE:
       return "0.00%";
-    case RENDERED_FIDELITY:
-    case RENDERED_TO_IDEAL_FIDELITY_RATIO:
+    case CURRENT_RENDERED_FIDELITY:
+    case CURRENT_RTI_FIDELITY_RATIO:
+    case CHOSEN_RENDERED_FIDELITY:
+    case CHOSEN_RTI_FIDELITY_RATIO:
       return "0.00";
     default:
       return null;
   }
-}
-
-function getColumnKeys(thisPageData) {
-  return [
-    ...Object.keys(thisPageData[0]),
-    RENDERED_FIDELITY,
-    RENDERED_TO_IDEAL_FIDELITY_RATIO,
-    EVALUATION,
-    WASTE,
-  ];
 }
 
 function getStyle(columnKey) {
@@ -113,7 +111,7 @@ const autoWidth = (worksheet, minimalWidth = 1) => {
         cell.value ? cell.value.toString().length : 0
       );
     });
-    column.width = maxColumnLength + 1;
+    column.width = maxColumnLength;
   });
 };
 
@@ -151,17 +149,30 @@ function excelCell(colName, rowNumber) {
   return `${columns[colName]}${rowNumber}`;
 }
 
-const startRowNumber = 2;
+function addConditionalFormatting(worksheet, lastRowNumber) {
+  addConditionalFormattingTo(
+    worksheet,
+    CHOSEN_INTRINSIC_WIDTH,
+    CHOSEN_EVALUATION,
+    lastRowNumber
+  );
+  addConditionalFormattingTo(
+    worksheet,
+    CURRENT_INTRINSIC_WIDTH,
+    CURRENT_EVALUATION,
+    lastRowNumber
+  );
+}
 
-const addConditionalFormatting = (worksheet, lastRowNumber) => {
-  const evaluationCell = excelCell(EVALUATION, startRowNumber);
+function addConditionalFormattingTo(
+  worksheet,
+  columnToFormat,
+  evaluationColumn,
+  lastRowNumber
+) {
+  const evaluationCell = excelCell(evaluationColumn, startRowNumber);
   worksheet.addConditionalFormatting({
-    ref: excelRange(
-      CHOSEN_INTRINSIC_WIDTH,
-      startRowNumber,
-      CHOSEN_INTRINSIC_WIDTH,
-      lastRowNumber
-    ),
+    ref: excelVerticalRange(columnToFormat, startRowNumber, lastRowNumber),
     rules: [
       getConditionalFormattingRule(
         `${evaluationCell}="${evaluations.GOOD}"`,
@@ -183,54 +194,92 @@ const addConditionalFormatting = (worksheet, lastRowNumber) => {
       ),
     ],
   });
-};
+}
+
+function thresholdsFormula(columnWithRTI) {
+  const rtiCell = excelCell(columnWithRTI, startRowNumber);
+  return `_xlfn.IFS(\
+    ${rtiCell}<0.9, "${evaluations.POOR}", \
+    ${rtiCell}<1, "${evaluations.BELOW}", \
+    ${rtiCell}=1, "${evaluations.GOOD}", \
+    ${rtiCell}>1.2, "${evaluations.BIG}", \
+    ${rtiCell}>1, "${evaluations.ABOVE}"\
+  )`;
+}
 
 function fillWithFormulas(worksheet, lastRowNumber, fidelityCap) {
-  const renderedToIdealFRCell = excelCell(
-    RENDERED_TO_IDEAL_FIDELITY_RATIO,
+  const currentIntrWidthCell = excelCell(
+    CURRENT_INTRINSIC_WIDTH,
     startRowNumber
   );
   const chosenIntrWidthCell = excelCell(CHOSEN_INTRINSIC_WIDTH, startRowNumber);
   const imgWidthCell = excelCell(IMG_WIDTH, startRowNumber);
-  const renderedFidelityCell = excelCell(RENDERED_FIDELITY, startRowNumber);
+  const currentRenderedFidelityCell = excelCell(
+    CURRENT_RENDERED_FIDELITY,
+    startRowNumber
+  );
+  const chosenRenderedFidelityCell = excelCell(
+    CHOSEN_RENDERED_FIDELITY,
+    startRowNumber
+  );
   const pixelRatioCell = excelCell(PIXEL_RATIO, startRowNumber);
   const usageCell = excelCell(USAGE, startRowNumber);
 
-  const thresholdsFormula = `_xlfn.IFS(\
-    ${renderedToIdealFRCell}<0.9, "${evaluations.POOR}", \
-    ${renderedToIdealFRCell}<1, "${evaluations.BELOW}", \
-    ${renderedToIdealFRCell}=1, "${evaluations.GOOD}", \
-    ${renderedToIdealFRCell}>1.2, "${evaluations.BIG}", \
-    ${renderedToIdealFRCell}>1, "${evaluations.ABOVE}"\
-  )`;
-
+  // CURRENT
   worksheet.fillFormula(
-    excelVerticalRange(RENDERED_FIDELITY, startRowNumber, lastRowNumber),
+    excelVerticalRange(
+      CURRENT_RENDERED_FIDELITY,
+      startRowNumber,
+      lastRowNumber
+    ),
+    `${currentIntrWidthCell}/${imgWidthCell}`
+  );
+  worksheet.fillFormula(
+    excelVerticalRange(
+      CURRENT_RTI_FIDELITY_RATIO,
+      startRowNumber,
+      lastRowNumber
+    ),
+    `${currentRenderedFidelityCell}/MIN(${fidelityCap},${pixelRatioCell})`
+  );
+  worksheet.fillFormula(
+    excelVerticalRange(CURRENT_EVALUATION, startRowNumber, lastRowNumber),
+    thresholdsFormula(CURRENT_RTI_FIDELITY_RATIO)
+  );
+  worksheet.fillFormula(
+    excelVerticalRange(CURRENT_WASTE, startRowNumber, lastRowNumber),
+    `(${excelCell(CURRENT_RTI_FIDELITY_RATIO, startRowNumber)}-1)*${usageCell}`
+  );
+
+  // CHOSEN
+  worksheet.fillFormula(
+    excelVerticalRange(CHOSEN_RENDERED_FIDELITY, startRowNumber, lastRowNumber),
     `${chosenIntrWidthCell}/${imgWidthCell}`
   );
   worksheet.fillFormula(
     excelVerticalRange(
-      RENDERED_TO_IDEAL_FIDELITY_RATIO,
+      CHOSEN_RTI_FIDELITY_RATIO,
       startRowNumber,
       lastRowNumber
     ),
-    `${renderedFidelityCell}/MIN(${fidelityCap},${pixelRatioCell})`
+    `${chosenRenderedFidelityCell}/MIN(${fidelityCap},${pixelRatioCell})`
   );
   worksheet.fillFormula(
-    excelVerticalRange(EVALUATION, startRowNumber, lastRowNumber),
-    thresholdsFormula
+    excelVerticalRange(CHOSEN_EVALUATION, startRowNumber, lastRowNumber),
+    thresholdsFormula(CHOSEN_RTI_FIDELITY_RATIO)
   );
   worksheet.fillFormula(
-    excelVerticalRange(WASTE, startRowNumber, lastRowNumber),
-    `(${renderedToIdealFRCell}-1)*${usageCell}`
+    excelVerticalRange(CHOSEN_WASTE, startRowNumber, lastRowNumber),
+    `(${excelCell(CHOSEN_RTI_FIDELITY_RATIO, startRowNumber)}-1)*${usageCell}`
   );
 }
 
 export default function (workbook, pageName, thisPageData, fidelityCap) {
   const worksheet = workbook.addWorksheet(pageName);
-  const columnKeys = getColumnKeys(thisPageData);
+  const columnKeys = [...Object.keys(columns)];
   const lastRowNumber = thisPageData.length + 1;
   worksheet.columns = getColumns(columnKeys);
+  console.log(getColumns(columnKeys));
   worksheet.addRows(thisPageData);
   fillWithFormulas(worksheet, lastRowNumber, fidelityCap);
   autoWidth(worksheet);
