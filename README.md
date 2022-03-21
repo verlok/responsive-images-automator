@@ -6,33 +6,44 @@ This tool is useful to:
 2. generate the image tags (after you added intrinsic width to your data)
 3. test the generated image tags
 
-
 ## EXTRACT RENDERED CSS WIDTHS
 
 Extract images `width` in CSS pixels and in `vw` unit from pages, using puppeteer.
 
-### Config 
+### Config
 
 - `config/resolutions.csv`
 - `config/extraction.csv`
 - `config/blacklisted_domains.js`
 - `config/blacklisted_paths.js`
 
-### Command 
+### Command
 
 `npm run extract`
 
 ### Output
- 
+
 Find the extracted data in `/data/datafile.xlsx`, one worksheet per row of the extraction page.
 
-## UNDERSTAND HOW YOUR IMAGES ARE OPTIMISED
+## ANALYSE AND IMPROVE INTRINSIC WIDTHS
 
-In the `currentIntrinsicWidth` find the current intrinsic width of your images. See as they are optimised.
+In the columns, find:
 
-## ADD INTRINSIC WIDTHS
+| Column name             | Meaning                                                                            |
+| ----------------------- | ---------------------------------------------------------------------------------- |
+| currentIntrinsicWidth   | The current width of the downloaded images                                         |
+| currentRenderedFidelity | The currently rendered fidelity (pixel ratio)                                      |
+| currentRTIFidelityRatio | The current rendered-to-ideal fidelity ratio, which ideal number is 1              |
+| currentEvaluation       | The evaluation of the current image intrinsic width, from BIG to POOR. Ideal is OK |
+| currentWaste            | How much you are wasting, in percentage. Considers how much the resolution is used |
+| idealIntrinsicWidth     | The ideal intrinsic width you would have to use                                    |
+| chosenIntrinsicWidth    | The intrinsic with you choose, to generate the HTML of your responsive images      |
+| chosenRenderedFidelity  | The chosen rendered fidelity (pixel ratio)                                         |
+| chosenRTIFidelityRatio  | The chosen rendered-to-ideal fidelity ratio, which ideal number is 1               |
+| chosenEvaluation        | The evaluation of the chosen image intrinsic width, from BIG to POOR. Ideal is OK  |
+| chosenWaste             | How much you would waste, in percentage. Considers how much the resolution is used |
 
-Defining the intrinsic width of the images would be your only manual step. 
+Defining the intrinsic width of the images would be your only manual step.
 Don't panic, we got your back.
 
 ### Open the data file
@@ -45,9 +56,9 @@ You'll need to define ideal images' intrinsic widths in order to have a few (5 o
 
 The magic formulas in the rightmost columns of the spreadsheet will guide you.
 
-Adjust `intrinsicWidth` where you see "POOR" or "BIG" indications in the `isOK` column. You want to accept a "BIG" on rarely used resolutions, e.g. 320@2x.
+Adjust `chosenIntrinsicWidth` where you see "POOR" or "BIG" indications in the `chosenEvaluation` column. You want to accept a "BIG" on rarely used resolutions, e.g. 320@2x.
 
-Now check: do you have similar `intrinsicWidth` values? If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution. Do that and check again the `isOK` column and adjust where needed.
+Now check: do you have similar `chosenIntrinsicWidth` values? If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution. Do that and check again the `isOK` column and adjust where needed.
 
 ### Polish VW
 
@@ -57,19 +68,17 @@ In the Uncapped Images Page data, it's important to group together similar value
 
 Do the above steps for each of the worksheets (Excel tabs).
 
-
 ### Multiple pages refinement
 
 Reusing the same dimensions across pages will leverage CDN cache and browser cache for all of your users.
 
-So check again: do you have similar `intrinsicWidth` values ACROSS PAGES?
+So check again: do you have similar `chosenIntrinsicWidth` values ACROSS PAGES?
 
-To check this, copy all the `intrinsicWidth` from the listing page and uncapped images page in a new sheet, sort the values and remove the duplicates. Calculate the delta between each of the widths, it's usually a bad practice to have deltas < 100 pixels.
+To check this, copy all the `chosenIntrinsicWidth` from the listing page and uncapped images page in a new sheet, sort the values and remove the duplicates. Calculate the delta between each of the widths, it's usually a bad practice to have deltas < 100 pixels.
 
-If you do have similar `intrinsicWidth` values, group them by using one of the similar values and repeat the process. 
+If you do have similar `chosenIntrinsicWidth` values, group them by using one of the similar values and repeat the process.
 
 This new sheet will also give you a list of all the dimensions (widths) as an outcome, to pass as a config to your image processing tool.
-
 
 ## GENERATE IMAGE TAGS
 
@@ -89,11 +98,10 @@ With `{{ pagename }}` being the name you used in `config/extraction.csv`
 
 Use developer tools to inspect the images, right-click, copy outerHtml.
 
-
 ## TEST GENERATED IMAGE TAGS
 
 Test the generated tag to understand if browsers will download images of the intrinsic width you selected.
- 
+
 ### Command
 
 ```zsh
