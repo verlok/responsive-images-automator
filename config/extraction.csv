@@ -1,3 +1,2 @@
 pageName,pageUrl,imageCssSelector,capTo2x
-listing,https://www.dunhill.com/it/uomo/nuovi-arrivi-borse,#products img.mainImage,true
-detail,https://www.dunhill.com/it/borsa-a-tracolla_cod12601380qm.html,.productMainImageWrapper img,false
+home,https://webpagetest.org/,body > div.home_feature > div > div > div.home_feature_hed_visual > img,true
