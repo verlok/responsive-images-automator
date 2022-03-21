@@ -4,8 +4,9 @@
 
 `npm run extract` exports also current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
 
-BUG: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions
+BUG: fix tests, they're now using old column names
 
+BUG: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions
 
 ## NEXT VERSIONS
 
