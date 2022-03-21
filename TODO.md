@@ -2,9 +2,22 @@
 
 ## CURRENT VERSION
 
-`npm run extract` exports also current intrinsic widhts, to help you understand the current level of optimisation of your images.
+`npm run extract` exports also current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
 
-FIX: must fix Excel formulas so they get relatively positioned in columns depending on the number of previously occupied columns.
+BUG: currently extracted intrinsic width is not real, would need a page refresh each time. This is how it's done in tests:
+
+```js
+const page = await browser.newPage();
+await page.setCacheEnabled(false);
+await page.setViewport({
+  deviceScaleFactor: pixelRatio,
+  width: viewportWidth,
+  height: 667,
+});
+await page.goto(pageUrl);
+await page.reload({ waitUntil: "domcontentloaded" });
+await page.waitForFunction(`document.querySelector("img").currentSrc`);
+```
 
 BUG: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions
 
