@@ -8,9 +8,9 @@ This tool is useful to:
 2. generate the image tags (after you added intrinsic width to your data)
 3. test the generated image tags
 
-## TALK
+## TALK AT CSS DAY 2022
 
-I [talked about this tool](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) at CSS Day conference in 2022. Follow the link to see slides and video.
+I talked about this tool at [CSS Day IT conference 2022](https://2022.cssday.it/schedule/). [In this blog post](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) you fill find slides and video of the talk.
 
 ## EXTRACT RENDERED CSS WIDTHS
 
