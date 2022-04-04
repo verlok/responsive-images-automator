@@ -6,6 +6,10 @@ This tool is useful to:
 2. generate the image tags (after you added intrinsic width to your data)
 3. test the generated image tags
 
+## TALK
+
+I [talked about this tool](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) at CSS Day conference in 2022. Follow the link to see slides and video.
+
 ## EXTRACT RENDERED CSS WIDTHS
 
 Extract images `width` in CSS pixels and in `vw` unit from pages, using puppeteer.
