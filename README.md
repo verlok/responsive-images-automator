@@ -1,5 +1,7 @@
 # Responsive images automator
 
+<img width="1276" alt="Responsive images automator" src="https://user-images.githubusercontent.com/1127721/161528200-ff6914cf-3712-4a22-a6be-cf532c197b5f.png">
+
 This tool is useful to:
 
 1. extract rendered CSS width from your pages
@@ -7,8 +9,6 @@ This tool is useful to:
 3. test the generated image tags
 
 ## TALK
-
-<img width="1276" alt="Responsive images automator" src="https://user-images.githubusercontent.com/1127721/161528200-ff6914cf-3712-4a22-a6be-cf532c197b5f.png">
 
 I [talked about this tool](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) at CSS Day conference in 2022. Follow the link to see slides and video.
 
