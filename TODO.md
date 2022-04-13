@@ -6,7 +6,7 @@
 
 BUG: fix tests, they're now using old column names
 
-BUG: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions
+BUG: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions -- FIX: use performance timing API instead of fetching the image again
 
 ## NEXT VERSIONS
 

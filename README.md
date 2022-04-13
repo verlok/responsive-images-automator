@@ -12,8 +12,8 @@ Extract images `width` in CSS pixels and in `vw` unit from pages, using puppetee
 
 ### Config
 
-- `config/resolutions.csv`
-- `config/extraction.csv`
+- `config/resolutions.xlsx`
+- `config/images.xlsx`
 - `config/blacklisted_domains.js`
 - `config/blacklisted_paths.js`
 
@@ -94,7 +94,7 @@ You can visit the pages at the URLs that will be displayed in the terminal.
 http://localhost:8080/page/{{ pagename }}/
 ```
 
-With `{{ pagename }}` being the name you used in `config/extraction.csv`
+With `{{ pagename }}` being the name you used in `config/images.xlsx`
 
 Use developer tools to inspect the images, right-click, copy outerHtml.
 
