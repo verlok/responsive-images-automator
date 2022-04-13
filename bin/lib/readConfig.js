@@ -10,13 +10,14 @@ import {
 } from "./constants.js";
 import getWorksheetNames from "./getWorksheetNames.js";
 import worksheetToJson from "./worksheetToJson.js";
+import fs from "fs";
 
 const withPageUrlHyperlink = (config) =>
   config.map((row) =>
     !row.pageUrl.hyperlink ? row : { ...row, pageUrl: row.pageUrl.hyperlink }
   );
 
-export async function getResolutionsFromXslx() {
+async function getResolutionsFromXslx() {
   const fileName = "./config/resolutions.xlsx";
   const workbook = new ExcelJS.Workbook();
   const sheetNames = await getWorksheetNames(workbook, fileName);
@@ -33,7 +34,7 @@ export async function getResolutionsFromXslx() {
   return resolutions;
 }
 
-export async function getImagesConfigFromXlsx() {
+async function getImagesConfigFromXlsx() {
   const fileName = "./config/images.xlsx";
   const workbook = new ExcelJS.Workbook();
   const sheetNames = await getWorksheetNames(workbook, fileName);
@@ -49,4 +50,32 @@ export async function getImagesConfigFromXlsx() {
   extractionConfig = withPageUrlHyperlink(extractionConfig);
   console.log("extractionConfig", extractionConfig);
   return extractionConfig;
+}
+
+function tryReadFromJson(fileName) {
+  try {
+    const rawdata = fs.readFileSync(fileName);
+    const parsed = JSON.parse(rawdata);
+    return parsed;
+  } catch (e) {
+    // console.log(`${fileName} was not found`);
+  }
+}
+
+export async function getResolutions() {
+  let resolutions;
+  resolutions = tryReadFromJson("./config/resolutions.json");
+  if (!resolutions) {
+    resolutions = await getResolutionsFromXslx();
+  }
+  return resolutions;
+}
+
+export async function getImagesConfig() {
+  let imagesConfig;
+  imagesConfig = tryReadFromJson("./config/images.json");
+  if (!imagesConfig) {
+    imagesConfig = await getImagesConfigFromXlsx();
+  }
+  return imagesConfig;
 }
