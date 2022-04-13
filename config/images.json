@@ -1,0 +1,14 @@
+[
+  {
+    "pageName": "webdev-home",
+    "pageUrl": "https://web.dev/",
+    "imageCssSelector": "#main > div > header > div > div > div.flow > a:nth-child(2) > img",
+    "capTo2x": true
+  },
+  {
+    "pageName": "webdev-mainline",
+    "pageUrl": "https://web.dev/mainline-mensware/",
+    "imageCssSelector": "#main > img",
+    "capTo2x": false
+  }
+]

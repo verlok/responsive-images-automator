@@ -16,7 +16,7 @@ const withPageUrlHyperlink = (config) =>
     !row.pageUrl.hyperlink ? row : { ...row, pageUrl: row.pageUrl.hyperlink }
   );
 
-export async function getResolutions() {
+export async function getResolutionsFromXslx() {
   const fileName = "./config/resolutions.xlsx";
   const workbook = new ExcelJS.Workbook();
   const sheetNames = await getWorksheetNames(workbook, fileName);
@@ -25,7 +25,7 @@ export async function getResolutions() {
 
   if (!worksheet) {
     console.error(`Error reading ${fileName}`);
-    return [];
+    return null;
   }
 
   const resolutions = worksheetToJson(worksheet, columnsToRead);
@@ -33,7 +33,7 @@ export async function getResolutions() {
   return resolutions;
 }
 
-export async function getExtractionConfig() {
+export async function getImagesConfigFromXlsx() {
   const fileName = "./config/images.xlsx";
   const workbook = new ExcelJS.Workbook();
   const sheetNames = await getWorksheetNames(workbook, fileName);
@@ -42,7 +42,7 @@ export async function getExtractionConfig() {
 
   if (!worksheet) {
     console.error(`Error reading ${fileName}`);
-    return [];
+    return null;
   }
 
   let extractionConfig = worksheetToJson(worksheet, columnsToRead);
