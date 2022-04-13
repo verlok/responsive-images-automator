@@ -4,7 +4,7 @@ import ExcelJS from "exceljs";
 import blacklistedDomains from "../config/blacklisted_domains.js";
 import blacklistedPaths from "../config/blacklisted_paths.js";
 import blockBlacklistedRequests from "./lib/blockBlacklistedRequests.js";
-import { getExtractionConfig, getResolutions } from "./lib/readConfig.js";
+import { getImagesConfig, getResolutions } from "./lib/readConfig.js";
 import navigateTo from "./lib/navigateTo.js";
 import augmentPageData from "./lib/augmentPageData.js";
 import extractPageData from "./lib/extractPageData.js";
@@ -15,23 +15,23 @@ async function run(puppeteer) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   blockBlacklistedRequests(page, { blacklistedDomains, blacklistedPaths });
-  const workbook = new ExcelJS.Workbook();
   const resolutions = await getResolutions();
-  const extractionConfig = await getExtractionConfig();
-
-  for (const extraction of extractionConfig) {
-    await navigateTo(page, extraction[PAGE_URL]);
-    const fidelityCap = extraction[CAP_TO_2X] === "true" ? 2 : 3;
+  const imagesConfig = await getImagesConfig();
+  
+  const workbook = new ExcelJS.Workbook();
+  for (const imageConfig of imagesConfig) {
+    await navigateTo(page, imageConfig[PAGE_URL]);
+    const fidelityCap = imageConfig[CAP_TO_2X] === "true" ? 2 : 3;
     const extractedPageData = await extractPageData(
       resolutions,
       page,
-      extraction,
+      imageConfig,
       fidelityCap
     );
     const augmentedPageData = augmentPageData(extractedPageData, fidelityCap);
     createWorksheet(
       workbook,
-      extraction[PAGE_NAME],
+      imageConfig[PAGE_NAME],
       augmentedPageData,
       fidelityCap
     );

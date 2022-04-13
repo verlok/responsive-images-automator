@@ -12,8 +12,8 @@ Extract images `width` in CSS pixels and in `vw` unit from pages, using puppetee
 
 ### Config
 
-- `config/resolutions.xlsx`
-- `config/images.xlsx`
+- `config/resolutions.json` or `config/resolutions.xlsx` -- first found is used. If you use the Excel file, there's a specific format to follow: `usage`, `viewportWidth`, `pixelRatio`
+- `config/images.json` or `config/images.xlsx` -- first found is used. If you use the Excel file, there's a specific format to follow: `pageName`, `pageUrl`, `imageCssSelector`, `capTo2x`
 - `config/blacklisted_domains.js`
 - `config/blacklisted_paths.js`
 
