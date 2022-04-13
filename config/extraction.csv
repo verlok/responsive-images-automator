@@ -1,3 +1,0 @@
-pageName,pageUrl,imageCssSelector,capTo2x
-webdev-home,https://web.dev/,#main > div > header > div > div > div.flow > a:nth-child(2) > img,true
-webdev-mainline,https://web.dev/mainline-mensware/,#main > img,false

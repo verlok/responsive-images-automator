@@ -1,0 +1,18 @@
+[
+  { "usage": 0.139, "viewportWidth": 375, "pixelRatio": 3 },
+  { "usage": 0.134, "viewportWidth": 414, "pixelRatio": 2 },
+  { "usage": 0.095, "viewportWidth": 390, "pixelRatio": 3 },
+  { "usage": 0.086, "viewportWidth": 375, "pixelRatio": 2 },
+  { "usage": 0.083, "viewportWidth": 414, "pixelRatio": 3 },
+  { "usage": 0.061, "viewportWidth": 360, "pixelRatio": 3 },
+  { "usage": 0.052, "viewportWidth": 428, "pixelRatio": 3 },
+  { "usage": 0.041, "viewportWidth": 1920, "pixelRatio": 1 },
+  { "usage": 0.037, "viewportWidth": 412, "pixelRatio": 2.63 },
+  { "usage": 0.023, "viewportWidth": 1440, "pixelRatio": 2 },
+  { "usage": 0.018, "viewportWidth": 1366, "pixelRatio": 1 },
+  { "usage": 0.016, "viewportWidth": 360, "pixelRatio": 2 },
+  { "usage": 0.015, "viewportWidth": 768, "pixelRatio": 2 },
+  { "usage": 0.014, "viewportWidth": 393, "pixelRatio": 2.75 },
+  { "usage": 0.011, "viewportWidth": 1536, "pixelRatio": 1.25 },
+  { "usage": 0.008, "viewportWidth": 320, "pixelRatio": 2 }
+]
