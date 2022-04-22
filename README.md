@@ -6,9 +6,11 @@ This tool is useful to:
 2. generate the image tags (after you added intrinsic width to your data)
 3. test the generated image tags
 
-## EXTRACT RENDERED CSS WIDTHS
+## 1️⃣ - EXTRACT RENDERED CSS WIDTHS
 
-Extract images `width` in CSS pixels and in `vw` unit from pages, using puppeteer.
+- Extracts images `width` in CSS pixels and in `vw` unit from pages to an Excel file
+- Provides an intuitive way to select your intrinsic widths, with formulas and conditional formatting
+- Analyses the current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
 
 ### Config
 
@@ -80,7 +82,7 @@ If you do have similar `chosenIntrinsicWidth` values, group them by using one of
 
 This new sheet will also give you a list of all the dimensions (widths) as an outcome, to pass as a config to your image processing tool.
 
-## GENERATE IMAGE TAGS
+## 2️⃣ - GENERATE IMAGE TAGS
 
 Launch the server and visit pages to get the image tags you'd need.
 
@@ -98,7 +100,7 @@ With `{{ pagename }}` being the name you used in `config/images.xlsx`
 
 Use developer tools to inspect the images, right-click, copy outerHtml.
 
-## TEST GENERATED IMAGE TAGS
+## 3️⃣ - TEST GENERATED IMAGE TAGS
 
 Test the generated tag to understand if browsers will download images of the intrinsic width you selected.
 

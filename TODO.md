@@ -1,14 +1,6 @@
 # TO DO
 
-## CURRENT VERSION
-
-`npm run extract` exports also current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
-
-**BUG**: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions -- FIX: use performance timing API instead of fetching the image again
-
 ## NEXT VERSIONS
-
-Change JS config files to the JSON froamt
 
 ---
 
