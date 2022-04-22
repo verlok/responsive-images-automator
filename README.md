@@ -12,11 +12,13 @@ This tool is useful to:
 
 I talked about this tool at [CSS Day IT conference 2022](https://2022.cssday.it/schedule/). [In this blog post](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) you fill find slides and video of the talk.
 
-## EXTRACT RENDERED CSS WIDTHS
+## 1️⃣ - EXTRACT RENDERED CSS WIDTHS
 
 <img width="1274" alt="Extract images dimensions from your web pages" src="https://user-images.githubusercontent.com/1127721/161528333-8ea71e39-3c08-4274-86a0-59e939e34e50.png">
 
-Extract images `width` in CSS pixels and in `vw` unit from pages, using puppeteer.
+- Extracts images `width` in CSS pixels and in `vw` unit from pages to an Excel file
+- Provides an intuitive way to select your intrinsic widths, with formulas and conditional formatting
+- Analyses the current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
 
 ### Config
 
@@ -88,7 +90,7 @@ If you do have similar `chosenIntrinsicWidth` values, group them by using one of
 
 This new sheet will also give you a list of all the dimensions (widths) as an outcome, to pass as a config to your image processing tool.
 
-## GENERATE IMAGE TAGS
+## 2️⃣ - GENERATE IMAGE TAGS
 
 <img width="1276" alt="Generates HTML code for responsive images" src="https://user-images.githubusercontent.com/1127721/161528489-f3b153ef-da59-409c-b398-2f8f0dd17029.png">
 
@@ -108,7 +110,7 @@ With `{{ pagename }}` being the name you used in `config/images.xlsx`
 
 Use developer tools to inspect the images, right-click, copy outerHtml.
 
-## TEST GENERATED IMAGE TAGS
+## 3️⃣ - TEST GENERATED IMAGE TAGS
 
 <img width="1277" alt="Makes sure browsers download the correct image" src="https://user-images.githubusercontent.com/1127721/161528572-d5b57969-159a-4153-b4da-eac25778784f.png">
 
