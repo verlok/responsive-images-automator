@@ -6,15 +6,13 @@ import probe from "probe-image-size";
 //const imgUrl = "https://webpagetest.org/images/wpt_home_featureimg.jpg";
 //const imgUrl = "https://dm.henkel-dam.com/is/image/henkel/Taft_campaign_2022_merkel_Magenta_Banner?wid=2560&fit=hfit&qlt=60";
 const imgUrl = "https://www.isabelmarant.com/17/17210600cc_20_r.jpg";
-//let result = await probe(imgUrl);
-//console.log(result);
 
 const domainFinder = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/igm;
 const domainResults = domainFinder.exec();
 const referer = domainResults[0];
 
 const imgIntrinsicWidth = await probe(imgUrl, {
-  response_timeout: 200,
+  response_timeout: 2000,
   headers: {
     accept: "image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
     "accept-encoding": "gzip, deflate, br",
