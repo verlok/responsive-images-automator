@@ -1,11 +1,5 @@
 # TO DO
 
-## CURRENT VERSION
-
-`npm run extract` exports also current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
-
-**BUG**: under some circumstances images get stuck in HTTP connection (e.g. YNAP images), make sure either you can disable intrinsic widths extractions -- FIX: use performance timing API instead of fetching the image again
-
 ## NEXT VERSIONS
 
 Find a way to run tests based on an extraction of requirements form the Excel data file. Started on branch `feature/dynamic-tests` and later on `feature/generated-test-files`.
