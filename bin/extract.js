@@ -21,7 +21,8 @@ async function run(puppeteer) {
   const workbook = new ExcelJS.Workbook();
   for (const imageConfig of imagesConfig) {
     await navigateTo(page, imageConfig[PAGE_URL]);
-    const fidelityCap = imageConfig[CAP_TO_2X] === "true" ? 2 : 3;
+    const capConfig = imageConfig[CAP_TO_2X];
+    const fidelityCap = capConfig === true || capConfig === "true" ? 2 : 3;
     const extractedPageData = await extractPageData(
       resolutions,
       page,
