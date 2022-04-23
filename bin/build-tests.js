@@ -1,6 +1,6 @@
 import worksheetToJson from "./lib/worksheetToJson.js";
 import getWorksheetNames from "./lib/getWorksheetNames.js";
-import testTemplate from "./makeTests/testTemplate.js";
+import testTemplate from "./buildTests/testTemplate.js";
 import fs from "fs";
 import {
   CHOSEN_INTRINSIC_WIDTH,
@@ -23,7 +23,7 @@ pageNames.forEach((pageName) => {
     return;
   }
   const testData = worksheetToJson(worksheet, columnsToRead);
-  const fileContent = testTemplate(testData);
+  const fileContent = testTemplate(pageName, testData);
   const fileName = `./__tests__/${pageName}.test.js`;
   try {
     fs.writeFileSync(fileName, fileContent);

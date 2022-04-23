@@ -2,14 +2,14 @@ const getTestCasesRows = (testCases) =>
   testCases
     .map(
       ({ viewportWidth, pixelRatio, chosenIntrinsicWidth }) =>
-        `\${${viewportWidth}} | \${${pixelRatio}} | \${${chosenIntrinsicWidth}}\n`
+        `\${${viewportWidth}} | \${${pixelRatio}} | \${${chosenIntrinsicWidth}}`
     )
-    .join("");
+    .join("\n");
 
-export default (testCases) => `
+export default (pageName, testCases) => `
 const testFnFactory = require("./factory/testFnFactory");
 
-const pageName = "webdev-home";
+const pageName = "${pageName}";
 const pageUrl = \`http://localhost:8080/page/\${pageName}\`;
 
 describe(\`Testing \${pageName} page image\`, () => {

@@ -7,7 +7,7 @@
     "extract": "node ./bin/extract.js",
     "start": "node ./bin/server.js",
     "start:dev": "nodemon ./bin/server.js",
-    "build:tests": "node ./bin/makeTests.js",
+    "build:tests": "node ./bin/build-tests.js",
     "test": "jest",
     "test:dev": "jest --watchAll",
     "xls": "node ./bin/excel.js"
