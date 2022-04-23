@@ -33,7 +33,7 @@
     ],
     "testPathIgnorePatterns": [
       "factory",
-      "templates"
+      "examples"
     ]
   },
   "type": "module",
