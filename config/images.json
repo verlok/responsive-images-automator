@@ -6,8 +6,8 @@
     "capTo2x": true
   },
   {
-    "pageName": "webdev-mainline",
-    "pageUrl": "https://web.dev/mainline-mensware/",
+    "pageName": "webdev-mishipay",
+    "pageUrl": "https://web.dev/mishipay/",
     "imageCssSelector": "#main > img",
     "capTo2x": false
   }

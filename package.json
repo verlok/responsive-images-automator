@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "extract": "node ./bin/extract.js",
     "start": "node ./bin/server.js",
     "start:dev": "nodemon ./bin/server.js",
-    "extract": "node ./bin/extract.js",
+    "build:tests": "node ./bin/build-tests.js",
     "test": "jest",
     "test:dev": "jest --watchAll",
     "xls": "node ./bin/excel.js"
@@ -19,13 +20,20 @@
     "exceljs": "^4.3.0",
     "express": "^4.17.1",
     "jest": "^27.5.1",
+    "jest-puppeteer": "^6.1.0",
     "probe-image-size": "^7.2.3",
     "puppeteer": "^13.3.1"
   },
   "jest": {
+    "preset": "jest-puppeteer",
+    "verbose": true,
     "moduleFileExtensions": [
       "js",
       "ejs"
+    ],
+    "testPathIgnorePatterns": [
+      "factory",
+      "examples"
     ]
   },
   "type": "module",

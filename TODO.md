@@ -1,8 +1,12 @@
 # TO DO
 
-## NEXT VERSIONS
+## CURRENT
 
 Find a way to run tests based on an extraction of requirements form the Excel data file. Started on branch `feature/dynamic-tests` and later on `feature/generated-test-files`.
+
+## NEXT VERSIONS
+
+Make generated HTML use a pattern URL with replaceable widths
 
 ---
 
