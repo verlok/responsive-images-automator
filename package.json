@@ -31,7 +31,8 @@
       "ejs"
     ],
     "testPathIgnorePatterns": [
-      "factory"
+      "factory",
+      "templates"
     ]
   },
   "type": "module",
