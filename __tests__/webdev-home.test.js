@@ -1,3 +1,5 @@
+const testFnFactory = require("./factory/testFnFactory");
+
 const pageName = "webdev-home";
 const pageUrl = `http://localhost:8080/page/${pageName}`;
 
@@ -22,21 +24,6 @@ describe(`Testing ${pageName} page image`, () => {
     ${320}        | ${2}       | ${558}
   `(
     `When viewport is $viewportWidth @ $pixelRatio, image intrinsic width should be $expectedIntrinsicWidth`,
-    async ({ viewportWidth, pixelRatio, expectedIntrinsicWidth }) => {
-      await page.setCacheEnabled(false);
-      await page.setViewport({
-        deviceScaleFactor: pixelRatio,
-        width: viewportWidth,
-        height: 667,
-      });
-      await page.goto(pageUrl);
-      await page.reload({ waitUntil: "domcontentloaded" });
-      await page.waitForFunction(`document.querySelector("img").currentSrc`);
-      //await page.screenshot({ path: `detail-${viewportWidth}@${pixelRatio}.png` });
-      const body = await page.$("body");
-      expect(await body.$eval("img", (img) => img.currentSrc)).toBe(
-        `https://via.placeholder.com/${expectedIntrinsicWidth}`
-      );
-    }
+    testFnFactory(pageUrl)
   );
 });
