@@ -1,27 +1,4 @@
 const pageName = "webdev-home";
-const testTable = [
-  { viewportWidth: 375, pixelRatio: 3, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 414, pixelRatio: 2, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 390, pixelRatio: 3, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 375, pixelRatio: 2, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 414, pixelRatio: 3, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 360, pixelRatio: 3, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 428, pixelRatio: 3, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 1920, pixelRatio: 1, expectedIntrinsicWidth: 558 },
-  { viewportWidth: 412, pixelRatio: 2.63, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 1440, pixelRatio: 2, expectedIntrinsicWidth: 1116 },
-  { viewportWidth: 1366, pixelRatio: 1, expectedIntrinsicWidth: 558 },
-  { viewportWidth: 360, pixelRatio: 2, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 768, pixelRatio: 2, expectedIntrinsicWidth: 558 },
-  { viewportWidth: 393, pixelRatio: 2.75, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 1536, pixelRatio: 1.25, expectedIntrinsicWidth: 692 },
-  { viewportWidth: 320, pixelRatio: 2, expectedIntrinsicWidth: 558 },
-];
-
-// -------------
-// -------------
-// -------------
-
 const puppeteer = require("puppeteer");
 const pageUrl = `http://localhost:8080/page/${pageName}`;
 let browser;
@@ -33,7 +10,25 @@ beforeAll(async () => {
 });
 
 describe(`Testing ${pageName} page image`, () => {
-  test.each(testTable)(
+  test.each`
+    viewportWidth | pixelRatio | expectedIntrinsicWidth
+    ${375}        | ${3}       | ${692}
+    ${414}        | ${2}       | ${692}
+    ${390}        | ${3}       | ${692}
+    ${375}        | ${2}       | ${692}
+    ${414}        | ${3}       | ${692}
+    ${360}        | ${3}       | ${692}
+    ${428}        | ${3}       | ${692}
+    ${1920}       | ${1}       | ${558}
+    ${412}        | ${2.63}    | ${692}
+    ${1440}       | ${2}       | ${1116}
+    ${1366}       | ${1}       | ${558}
+    ${360}        | ${2}       | ${692}
+    ${768}        | ${2}       | ${558}
+    ${393}        | ${2.75}    | ${692}
+    ${1536}       | ${1.25}    | ${692}
+    ${320}        | ${2}       | ${558}
+  `(
     `When viewport is $viewportWidth @ $pixelRatio, image intrinsic width should be $expectedIntrinsicWidth`,
     async ({ viewportWidth, pixelRatio, expectedIntrinsicWidth }) => {
       const page = await browser.newPage();
