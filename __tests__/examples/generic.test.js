@@ -1,4 +1,4 @@
-const testFnFactory = require("../factory/testFnFactory");
+const testFnFactory = require("./factory/testFnFactory");
 
 const pageName = "webdev-home";
 const pageUrl = `http://localhost:8080/page/${pageName}`;
