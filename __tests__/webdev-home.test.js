@@ -1,13 +1,5 @@
 const pageName = "webdev-home";
-const puppeteer = require("puppeteer");
 const pageUrl = `http://localhost:8080/page/${pageName}`;
-let browser;
-
-beforeAll(async () => {
-  browser = await puppeteer.launch({
-    //headless: false
-  });
-});
 
 describe(`Testing ${pageName} page image`, () => {
   test.each`
@@ -31,7 +23,6 @@ describe(`Testing ${pageName} page image`, () => {
   `(
     `When viewport is $viewportWidth @ $pixelRatio, image intrinsic width should be $expectedIntrinsicWidth`,
     async ({ viewportWidth, pixelRatio, expectedIntrinsicWidth }) => {
-      const page = await browser.newPage();
       await page.setCacheEnabled(false);
       await page.setViewport({
         deviceScaleFactor: pixelRatio,
@@ -48,8 +39,4 @@ describe(`Testing ${pageName} page image`, () => {
       );
     }
   );
-});
-
-afterAll(async () => {
-  await browser.close();
 });

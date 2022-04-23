@@ -19,10 +19,13 @@
     "exceljs": "^4.3.0",
     "express": "^4.17.1",
     "jest": "^27.5.1",
+    "jest-puppeteer": "^6.1.0",
     "probe-image-size": "^7.2.3",
     "puppeteer": "^13.3.1"
   },
   "jest": {
+    "preset": "jest-puppeteer",
+    "verbose": true,
     "moduleFileExtensions": [
       "js",
       "ejs"
