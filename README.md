@@ -8,10 +8,6 @@ This tool is useful to:
 2. generate the image tags (after you added intrinsic width to your data)
 3. test the generated image tags
 
-## TALK AT CSS DAY 2022
-
-I talked about this tool at [CSS Day IT conference 2022](https://2022.cssday.it/schedule/). [In this blog post](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) you fill find slides and video of the talk.
-
 ## 1️⃣ - EXTRACT RENDERED CSS WIDTHS
 
 <img width="1274" alt="Extract images dimensions from your web pages" src="https://user-images.githubusercontent.com/1127721/161528333-8ea71e39-3c08-4274-86a0-59e939e34e50.png">
@@ -145,7 +141,6 @@ or, for watch mode during development:
 npm run test:dev
 ```
 
-## 🆘 HELP?
+## CONFERENCE TALKS ABOUT THIS
 
-- [This talk slides](https://docs.google.com/presentation/d/1O_BQ0KuDTNV2WRryEJlmcyMiHNlVK4802K88PdrVEeo/edit?usp=sharing) go through the process
-- Check out this (COMING SOON) video see the process in action!
+I talked about this tool at [CSS Day IT conference 2022](https://2022.cssday.it/schedule/). [In this blog post](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) you will find the slides and the video of that talk.
