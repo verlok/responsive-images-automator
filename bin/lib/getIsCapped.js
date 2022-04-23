@@ -3,12 +3,13 @@ import { CAP_TO_2X, PAGE_NAME } from "./constants.js";
 
 const imagesConfig = await getImagesConfig();
 export default function (pageName) {
-  const thisPageRule = imagesConfig.find(
+  const thisImageRules = imagesConfig.find(
     (rule) => rule[PAGE_NAME] === pageName
   );
-  if (!thisPageRule) {
+  if (!thisImageRules) {
     return null;
   }
-  const isCapped = thisPageRule[CAP_TO_2X] === "true";
+  const thisImageCap2xRule = thisImageRules[CAP_TO_2X];
+  const isCapped = thisImageCap2xRule || thisImageCap2xRule === "true";
   return isCapped;
 }
