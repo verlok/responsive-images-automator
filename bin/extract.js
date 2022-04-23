@@ -22,7 +22,7 @@ async function run(puppeteer) {
   for (const imageConfig of imagesConfig) {
     await navigateTo(page, imageConfig[PAGE_URL]);
     const capConfig = imageConfig[CAP_TO_2X];
-    const fidelityCap = capConfig === true || capConfig === "true" ? 2 : 3;
+    const fidelityCap = capConfig || capConfig === "true" ? 2 : 3;
     const extractedPageData = await extractPageData(
       resolutions,
       page,
