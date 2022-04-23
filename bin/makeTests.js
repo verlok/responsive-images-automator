@@ -14,7 +14,7 @@ const pageNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
 const columnsToRead = [VIEWPORT_WIDTH, PIXEL_RATIO, CHOSEN_INTRINSIC_WIDTH];
 
 pageNames.forEach((pageName) => {
-  console.log(`Generating tests for page "${pageName}"`);
+  console.log(`Generating tests for page "${pageName}"...`);
   const worksheet = workbook.getWorksheet(pageName);
   if (!worksheet) {
     console.error(
@@ -23,12 +23,11 @@ pageNames.forEach((pageName) => {
     return;
   }
   const testData = worksheetToJson(worksheet, columnsToRead);
-  console.log(testData);
   const fileContent = testTemplate(testData);
-  console.log(fileContent);
   const fileName = `./__tests__/${pageName}.test.js`;
   try {
     fs.writeFileSync(fileName, fileContent);
+    console.log(`...done! Check out ${fileName}`);
   } catch (err) {
     console.error(err);
   }
