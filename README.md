@@ -112,34 +112,26 @@ Use developer tools to inspect the images, right-click, copy outerHtml.
 
 Test the generated tag to understand if browsers will download images of the intrinsic width you selected.
 
-### Command
+### Commands
+
+You can now automatically generate test files. To do so, run the command:
+
+```zsh
+npm run build:tests
+```
+
+If the server is not running already, run:
 
 ```zsh
 npm run start
 ```
 
-or, for auto-reload during development:
-
-```zsh
-npm run start:dev
-```
-
-### Test files
-
-- `views/__tests__/uncapped.ejs.test.js`
-- `views/__tests__/capped.ejs.test.js`
-
-### Test (in another terminal window)
+While the server is running (in another terminal window), run:
 
 ```zsh
 npm run test
 ```
 
-or, for watch mode during development:
-
-```zsh
-npm run test:dev
-```
 
 ## CONFERENCE TALKS ABOUT THIS
 

@@ -1,15 +1,12 @@
 # TO DO
 
+## CURRENT
+
+Find a way to run tests based on an extraction of requirements form the Excel data file. Started on branch `feature/dynamic-tests` and later on `feature/generated-test-files`.
+
 ## NEXT VERSIONS
 
----
-
-Add a new Excel sheet with formulas to help users find unique intrinsic image widths.
-It should be `UNIQUE(TOCOL(A2:B12))`.
-
----
-
-Find a way to run tests based on an extraction of requirements form the Excel data file. Started on branch `feature/dynamic-tests`.
+Make generated HTML use a pattern URL with replaceable widths
 
 ---
 
@@ -31,10 +28,14 @@ Express.js would be used only by JEST for testing purposes.
 
 Support adaptive websites (separate versions for smartphone + desktop|tablet), e.g. by adding the ability to set a cookie to force the version, or enabling emulation mode in puppeteer.
 
+---
+
+Add a new Excel sheet with formulas to help users find unique intrinsic image widths.
+It should be `UNIQUE(TOCOL(A2:B12))`.
+
 
 ## COMMS
 
-- Update the slides on the new talk
-- Write a blog post on this
+- Write a blog post on this tool
 - Record a video on how to do that
 - Tweet!
