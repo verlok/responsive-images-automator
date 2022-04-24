@@ -124,10 +124,11 @@ This will launch the server and output a list of the URLs you can visit, like th
 http://localhost:8080/image/{{imageName}}/
 ```
 
-With `{{imageName}}` being the name you used in `config/images.xlsx`
+...with `{{imageName}}` being the name you used in `config/images.xlsx`.
 
 When the page will be loaded by the browser, an image will be rendered in it. 
-Use your browser's developer tools to inspect the images, right-click, copy the `outerHtml` of the image.
+
+Under the rendered image, find the generated HTML code.
 
 ---
 

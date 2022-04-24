@@ -5,15 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= pageTitle %></title>
+    <style>
+      output {
+        margin: 1rem 0;
+        padding: 1rem;
+        display: block;
+        font-family: monospace;
+        background-color: gainsboro;
+        border: 1px solid grey
+      }
+    </style>
   </head>
 
   <body>
     <h1><%= pageTitle %></h1>
+
+    <h2>Rendered image</h2>
     <img
       alt="<%= imgAlt %>"
       src="<%= image.legacyImgUrl %>"
       srcset="<%= image.srcset %>"
       sizes="<%= image.sizesAttr %>"
     />
+
+    <h2>HTML code</h2>
+    <code><output></output></code>
+    <script>
+      const img = document.querySelector("img");
+      const output = document.querySelector("output");
+      output.innerText = img.outerHTML;
+    </script>
   </body>
 </html>
