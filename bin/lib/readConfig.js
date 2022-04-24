@@ -58,9 +58,9 @@ async function getImagesConfigFromXlsx() {
     return null;
   }
 
-  let extractionConfig = worksheetToJson(worksheet, columnsToRead);
-  extractionConfig = normalizeHyperlinks(extractionConfig, columnsToRead);
-  return extractionConfig;
+  let imagesConfig = worksheetToJson(worksheet, columnsToRead);
+  imagesConfig = normalizeHyperlinks(imagesConfig, columnsToRead);
+  return imagesConfig;
 }
 
 function tryReadFromJson(fileName) {

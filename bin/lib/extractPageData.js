@@ -10,18 +10,18 @@ import {
   CURRENT_INTRINSIC_WIDTH,
 } from "./constants.js";
 
-export default async function (resolutions, page, extraction, fidelityCap) {
+export default async function (resolutions, page, imageConfig, fidelityCap) {
   const currentPageData = [];
   const forceReload = true; 
   for (const resolution of resolutions) {
-    const imageCssSelector = extraction[IMAGE_CSS_SELECTOR];
+    const imageCssSelector = imageConfig[IMAGE_CSS_SELECTOR];
     const { imgWidth, imgIntrinsicWidth } = await getImageWidthAtViewport(
       page,
       resolution,
       imageCssSelector,
       forceReload
     );
-    //await takeScreenshot(page, resolution, extraction[PAGE_NAME]);
+    //await takeScreenshot(page, resolution, imageConfig[PAGE_NAME]);
     currentPageData.push({
       ...resolution,
       [IMG_WIDTH]: imgWidth,

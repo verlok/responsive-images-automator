@@ -29,7 +29,7 @@ This tool is useful to:
 
 ### Output
 
-Find the extracted data in `/data/datafile.xlsx`, one worksheet per row of the extraction page.
+Find the extracted data in `/data/datafile.xlsx`, one worksheet per row of the images config file.
 
 ## ANALYSE AND IMPROVE INTRINSIC WIDTHS
 
