@@ -1,6 +1,8 @@
 # TO DO
 
-Make generated HTML use a pattern URL with replaceable widths
+## Next
+
+In the page rendered by `server.js` also display the HTML of the image as raw HTML.
 
 ---
 
@@ -15,7 +17,7 @@ Automatically round `vw` to `10vw` or amongst groups of `10vw`, instead of askin
 
 ---
 
-Add `npm build` to generate image tags (or pages and image tags?) in static files, for easier copy and paste and easier testing. 
+Add `npm build` to generate image tags (or pages and image tags?) in static files, for easier copy and paste and easier testing.
 Express.js would be used only by JEST for testing purposes.
 
 ---
@@ -26,7 +28,6 @@ Support adaptive websites (separate versions for smartphone + desktop|tablet), e
 
 Add a new Excel sheet with formulas to help users find unique intrinsic image widths.
 It should be `UNIQUE(TOCOL(A2:B12))`.
-
 
 ## COMMS
 

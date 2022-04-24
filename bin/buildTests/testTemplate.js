@@ -6,18 +6,19 @@ const getTestCasesRows = (testCases) =>
     )
     .join("\n");
 
-export default (pageName, testCases) => `
+export default (imageName, testCases, imageTemplate) => `
 const testFnFactory = require("./factory/testFnFactory");
 
-const pageName = "${pageName}";
-const pageUrl = \`http://localhost:8080/page/\${pageName}\`;
+const imageName = "${imageName}";
+const pageUrl = \`http://localhost:8080/image/\${imageName}\`;
+const imageTemplate = "${imageTemplate}";
 
-describe(\`Testing \${pageName} page image\`, () => {
+describe(\`Testing \${imageName} image at "\${pageUrl}" \`, () => {
   test.each\`
     viewportWidth | pixelRatio | expectedIntrinsicWidth
     ${getTestCasesRows(testCases)}\`(
     \`When viewport is $viewportWidth @ $pixelRatio, image intrinsic width should be $expectedIntrinsicWidth\`,
-    testFnFactory(pageUrl)
+    testFnFactory(pageUrl, imageTemplate)
   );
 });
 `;

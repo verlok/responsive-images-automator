@@ -56,11 +56,6 @@ const columns = {
 
 const startRowNumber = 2;
 
-function camelToSentence(camel) {
-  const result = camel.replace(/([A-Z])/g, " $1");
-  return result.charAt(0).toUpperCase() + result.slice(1);
-}
-
 function getNumberFormat(key) {
   switch (key) {
     case USAGE:
@@ -279,8 +274,8 @@ function fillWithFormulas(worksheet, lastRowNumber, fidelityCap) {
   );
 }
 
-export default function (workbook, pageName, thisPageData, fidelityCap) {
-  const worksheet = workbook.addWorksheet(pageName);
+export default function (workbook, imageName, thisPageData, fidelityCap) {
+  const worksheet = workbook.addWorksheet(imageName);
   const columnKeys = [...Object.keys(columns)];
   const lastRowNumber = thisPageData.length + 1;
   worksheet.columns = getColumns(columnKeys);

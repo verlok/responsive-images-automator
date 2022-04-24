@@ -4,6 +4,7 @@ import {
   IMG_VW,
   VIEWPORT_WIDTH,
 } from "./constants.js";
+import getImageUrl from "./getImageUrl.js";
 
 const uncappedCompareFn = (rowA, rowB) => {
   return (
@@ -37,7 +38,7 @@ const getImageSizesMediaQueries = (sortedWidths) => {
   return mediaQueries;
 };
 
-export default (intrinsicWidthsConfig) => {
+export default (intrinsicWidthsConfig, imageTemplate) => {
   const sortedUncappedImgWidths = intrinsicWidthsConfig.sort(uncappedCompareFn);
   const onlyImgWidths = sortedUncappedImgWidths.map(
     (row) => row[CHOSEN_INTRINSIC_WIDTH]
@@ -46,9 +47,13 @@ export default (intrinsicWidthsConfig) => {
   const imageSizesMediaQueries = getImageSizesMediaQueries(
     sortedUncappedImgWidths
   );
+  const legacyWidth = dedupedImgWidths[dedupedImgWidths.length - 1];
+  const srcset = dedupedImgWidths
+    .map((imageWidth) => `${getImageUrl(imageWidth, imageTemplate)} ${imageWidth}w`)
+    .join();
   const templateData = {
-    widths: dedupedImgWidths,
-    legacyWidth: dedupedImgWidths[dedupedImgWidths.length - 1],
+    srcset,
+    legacyImgUrl: getImageUrl(legacyWidth, imageTemplate),
     sizesAttr: getImageSizesAttr(imageSizesMediaQueries),
   };
   return templateData;
