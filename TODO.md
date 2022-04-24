@@ -2,7 +2,7 @@
 
 ## Next
 
-In the page rendered by `server.js` also display the HTML of the image as raw HTML.
+Graceful error message if you try and `npm run start` without a `datafile.xlsx`.
 
 ---
 
