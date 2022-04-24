@@ -2,10 +2,6 @@
 
 ## Next
 
-In the page rendered by `server.js` also display the HTML of the image as raw HTML.
-
----
-
 Un-wire that 414, 375@3x from extraction and calculate it using resolutions data and usage (414@2x is currently the wider & most-used smartphone, 375@3x is the most used)
 
 ---

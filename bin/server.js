@@ -18,7 +18,11 @@ const port = 8080;
 app.set("view engine", "ejs");
 
 const workbook = new ExcelJS.Workbook();
-const sheetNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
+const imageNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
+if (!imageNames) {
+  console.error("No sheets found. Aborting.");
+  process.exit(1);
+}
 const columnsToRead = [
   IMG_VW,
   VIEWPORT_WIDTH,
@@ -64,5 +68,5 @@ app.listen(port, function (error) {
     throw error;
     return;
   }
-  welcomeMessage(port, sheetNames);
+  welcomeMessage(port, imageNames);
 });
