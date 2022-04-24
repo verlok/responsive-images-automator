@@ -8,6 +8,7 @@ import {
   VIEWPORT_WIDTH,
 } from "./lib/constants.js";
 import ExcelJS from "exceljs";
+import getImageConfig from "./lib/getImageConfig.js";
 
 const workbook = new ExcelJS.Workbook();
 const imageNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
@@ -23,7 +24,13 @@ imageNames.forEach((imageName) => {
     return;
   }
   const testData = worksheetToJson(worksheet, columnsToRead);
-  const fileContent = testTemplate(imageName, testData);
+  const imageConfig = getImageConfig(imageName);
+  if (!imageConfig) {
+    console.log(`Image config not found for image "${imageName}". Aborting.`);
+    return;
+  }
+  const { imageTemplate } = imageConfig;
+  const fileContent = testTemplate(imageName, testData, imageTemplate);
   const fileName = `./__tests__/${imageName}.test.js`;
   try {
     fs.writeFileSync(fileName, fileContent);
