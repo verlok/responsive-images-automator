@@ -1,10 +1,10 @@
 export default function (port, sheetNames) {
   const listOfUrls = sheetNames.map(
-    (pageName) => `- http://localhost:${port}/page/${pageName}`
+    (imageName) => `- http://localhost:${port}/image/${imageName}`
   );
   const consoleLines = [
     "Server is running.",
-    "Visit one of the following pages to generate HTML for the related page:",
+    "Visit one of the following pages to generate HTML for the related image:",
     //"",
     ...listOfUrls,
     

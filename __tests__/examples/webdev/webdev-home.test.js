@@ -1,9 +1,9 @@
 const testFnFactory = require("./factory/testFnFactory");
 
-const pageName = "webdev-home";
-const pageUrl = `http://localhost:8080/page/${pageName}`;
+const imageName = "webdev-home";
+const pageUrl = `http://localhost:8080/image/${imageName}`;
 
-describe(`Testing ${pageName} page image`, () => {
+describe(`Testing image "${imageName}"`, () => {
   test.each`
     viewportWidth | pixelRatio | expectedIntrinsicWidth
     ${375}        | ${3}       | ${1038}

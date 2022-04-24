@@ -6,10 +6,10 @@ import blacklistedPaths from "../config/blacklisted_paths.js";
 import blockBlacklistedRequests from "./lib/blockBlacklistedRequests.js";
 import { getImagesConfig, getResolutions } from "./lib/readConfig.js";
 import navigateTo from "./lib/navigateTo.js";
-import augmentPageData from "./lib/augmentPageData.js";
-import extractPageData from "./lib/extractPageData.js";
+import augmentImageData from "./lib/augmentImageData.js";
+import extractImageData from "./lib/extractImageData.js";
 import createWorksheet from "./lib/createWorksheet.js";
-import { CAP_TO_2X, PAGE_NAME, PAGE_URL } from "./lib/constants.js";
+import { CAP_TO_2X, IMAGE_NAME, PAGE_URL } from "./lib/constants.js";
 
 async function run(puppeteer) {
   const browser = await puppeteer.launch({ headless: false });
@@ -23,16 +23,16 @@ async function run(puppeteer) {
     await navigateTo(page, imageConfig[PAGE_URL]);
     const capConfig = imageConfig[CAP_TO_2X];
     const fidelityCap = capConfig || capConfig === "true" ? 2 : 3;
-    const extractedPageData = await extractPageData(
+    const extractedPageData = await extractImageData(
       resolutions,
       page,
       imageConfig,
       fidelityCap
     );
-    const augmentedPageData = augmentPageData(extractedPageData, fidelityCap);
+    const augmentedPageData = augmentImageData(extractedPageData, fidelityCap);
     createWorksheet(
       workbook,
-      imageConfig[PAGE_NAME],
+      imageConfig[IMAGE_NAME],
       augmentedPageData,
       fidelityCap
     );

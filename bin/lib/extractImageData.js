@@ -21,7 +21,7 @@ export default async function (resolutions, page, imageConfig, fidelityCap) {
       imageCssSelector,
       forceReload
     );
-    //await takeScreenshot(page, resolution, imageConfig[PAGE_NAME]);
+    //await takeScreenshot(page, resolution, imageConfig[IMAGE_NAME]);
     currentPageData.push({
       ...resolution,
       [IMG_WIDTH]: imgWidth,

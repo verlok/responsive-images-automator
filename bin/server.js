@@ -33,24 +33,24 @@ const buildImageModel = (imageConfig, pageData) => {
     : buildUncappedImgModel(pageData, imageTemplate);
 };
 
-app.get("/page/:pageName", async function (req, res) {
-  const requestedPageName = req.params.pageName;
-  const worksheet = workbook.getWorksheet(requestedPageName);
+app.get("/image/:imageName", async function (req, res) {
+  const requestedImageName = req.params.imageName;
+  const worksheet = workbook.getWorksheet(requestedImageName);
   if (!worksheet) {
-    res.render("notFound.ejs", { pageName: requestedPageName });
+    res.render("notFound.ejs", { imageName: requestedImageName });
     return;
   }
   const pageData = worksheetToJson(worksheet, columnsToRead);
-  const imageConfig = getImageConfig(requestedPageName);
+  const imageConfig = getImageConfig(requestedImageName);
   if (!imageConfig) {
-    res.render("notFound.ejs", { pageName: requestedPageName });
+    res.render("notFound.ejs", { imageName: requestedImageName });
     return;
   }
   const imageModel = buildImageModel(imageConfig, pageData);
   const templateData = {
     image: imageModel,
-    pageTitle: `${requestedPageName} page`,
-    imgAlt: `${requestedPageName} page image`,
+    pageTitle: `Image: ${requestedImageName}`,
+    imgAlt: `${requestedImageName}`,
   };
 
   res.render(

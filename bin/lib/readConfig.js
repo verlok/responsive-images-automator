@@ -3,7 +3,7 @@ import {
   CAP_TO_2X,
   IMAGE_CSS_SELECTOR,
   IMAGE_TEMPLATE,
-  PAGE_NAME,
+  IMAGE_NAME,
   PAGE_URL,
   PIXEL_RATIO,
   USAGE,
@@ -36,7 +36,6 @@ async function getResolutionsFromXslx() {
   }
 
   const resolutions = worksheetToJson(worksheet, columnsToRead);
-  console.log("resolutions", resolutions);
   return resolutions;
 }
 
@@ -46,7 +45,7 @@ async function getImagesConfigFromXlsx() {
   const sheetNames = await getWorksheetNames(workbook, fileName);
   const worksheet = workbook.getWorksheet(sheetNames[0]);
   const columnsToRead = [
-    PAGE_NAME,
+    IMAGE_NAME,
     PAGE_URL,
     IMAGE_CSS_SELECTOR,
     CAP_TO_2X,

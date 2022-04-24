@@ -279,8 +279,8 @@ function fillWithFormulas(worksheet, lastRowNumber, fidelityCap) {
   );
 }
 
-export default function (workbook, pageName, thisPageData, fidelityCap) {
-  const worksheet = workbook.addWorksheet(pageName);
+export default function (workbook, imageName, thisPageData, fidelityCap) {
+  const worksheet = workbook.addWorksheet(imageName);
   const columnKeys = [...Object.keys(columns)];
   const lastRowNumber = thisPageData.length + 1;
   worksheet.columns = getColumns(columnKeys);

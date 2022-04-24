@@ -1,12 +1,12 @@
 # TO DO
 
-## Currently
-
-Make generated HTML use a pattern URL with replaceable widths
-
-- Refactor pageName -> imageName ± extractionConfig -> imageConfig?
-
 ## Next
+
+Read the readme and fix it!
+The side preview can help.
+Polish those 'listing pages' and 'detail pages' from the readme. 
+
+---
 
 Un-wire that 414, 375@3x from extraction and calculate it using resolutions data and usage (414@2x is currently the wider & most-used smartphone, 375@3x is the most used)
 
@@ -19,7 +19,7 @@ Automatically round `vw` to `10vw` or amongst groups of `10vw`, instead of askin
 
 ---
 
-Add `npm build` to generate image tags (or pages and image tags?) in static files, for easier copy and paste and easier testing. 
+Add `npm build` to generate image tags (or pages and image tags?) in static files, for easier copy and paste and easier testing.
 Express.js would be used only by JEST for testing purposes.
 
 ---
@@ -30,7 +30,6 @@ Support adaptive websites (separate versions for smartphone + desktop|tablet), e
 
 Add a new Excel sheet with formulas to help users find unique intrinsic image widths.
 It should be `UNIQUE(TOCOL(A2:B12))`.
-
 
 ## COMMS
 

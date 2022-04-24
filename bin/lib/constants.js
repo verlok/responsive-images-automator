@@ -1,4 +1,4 @@
-export const PAGE_NAME = "pageName";
+export const IMAGE_NAME = "imageName";
 export const PAGE_URL = "pageUrl";
 export const IMAGE_CSS_SELECTOR = "imageCssSelector";
 export const USAGE = "usage";

@@ -10,21 +10,21 @@ import {
 import ExcelJS from "exceljs";
 
 const workbook = new ExcelJS.Workbook();
-const pageNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
+const imageNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
 const columnsToRead = [VIEWPORT_WIDTH, PIXEL_RATIO, CHOSEN_INTRINSIC_WIDTH];
 
-pageNames.forEach((pageName) => {
-  console.log(`Generating tests for page "${pageName}"...`);
-  const worksheet = workbook.getWorksheet(pageName);
+imageNames.forEach((imageName) => {
+  console.log(`Generating tests for image "${imageName}"...`);
+  const worksheet = workbook.getWorksheet(imageName);
   if (!worksheet) {
     console.error(
-      `Error while trying to open worksheeet for "${pageName}". Aborting.`
+      `Error while trying to open worksheeet for "${imageName}". Aborting.`
     );
     return;
   }
   const testData = worksheetToJson(worksheet, columnsToRead);
-  const fileContent = testTemplate(pageName, testData);
-  const fileName = `./__tests__/${pageName}.test.js`;
+  const fileContent = testTemplate(imageName, testData);
+  const fileName = `./__tests__/${imageName}.test.js`;
   try {
     fs.writeFileSync(fileName, fileContent);
     console.log(`...done! Check out ${fileName}`);

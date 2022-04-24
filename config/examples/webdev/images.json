@@ -1,13 +1,13 @@
 [
   {
-    "pageName": "webdev-home",
+    "imageName": "webdev-home",
     "pageUrl": "https://web.dev/",
     "imageCssSelector": "#main > div > header > div > div > div.flow > a:nth-child(2) > img",
     "capTo2x": true,
     "imageTemplate": "https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/CZo4R87iOBYiRpIq6NcP.jpg?auto=format&w={{width}}"
   },
   {
-    "pageName": "webdev-mishipay",
+    "imageName": "webdev-mishipay",
     "pageUrl": "https://web.dev/mishipay/",
     "imageCssSelector": "#main > img",
     "capTo2x": false,
