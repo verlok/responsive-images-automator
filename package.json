@@ -1,6 +1,6 @@
 {
   "name": "responsive-images-automator",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -40,5 +40,9 @@
   "type": "module",
   "devDependencies": {
     "nodemon": "^2.0.14"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://ko-fi.com/verlok"
   }
 }
