@@ -13,17 +13,15 @@ import getWorksheetNames from "./getWorksheetNames.js";
 import worksheetToJson from "./worksheetToJson.js";
 import fs from "fs";
 
-const normalizeHyperlinks = (config, fields) => {
-  return config.map((row) => {
+const normalizeHyperlinks = (config, fields) =>
+  config.map((row) => {
     const normalizedRow = {};
     for (const field of fields) {
-      normalizedRow[field] = row[field].hyperlink
-        ? row[field].hyperlink
-        : row[field];
+      normalizedRow[field] =
+        row[field] && row[field].hyperlink ? row[field].hyperlink : row[field];
     }
     return normalizedRow;
   });
-};
 
 async function getResolutionsFromXslx() {
   const fileName = "./config/resolutions.xlsx";
