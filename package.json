@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "jest": "^27.5.1",
     "jest-puppeteer": "^6.1.0",
+    "mustache": "^4.2.0",
     "probe-image-size": "^7.2.3",
     "puppeteer": "^13.3.1"
   },

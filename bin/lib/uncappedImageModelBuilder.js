@@ -46,9 +46,10 @@ export default (intrinsicWidthsConfig) => {
   const imageSizesMediaQueries = getImageSizesMediaQueries(
     sortedUncappedImgWidths
   );
+  const legacyWidth = dedupedImgWidths[dedupedImgWidths.length - 1];
   const templateData = {
     widths: dedupedImgWidths,
-    legacyWidth: dedupedImgWidths[dedupedImgWidths.length - 1],
+    legacyImgUrl: getImageUrl(legacyWidth),
     sizesAttr: getImageSizesAttr(imageSizesMediaQueries),
   };
   return templateData;
