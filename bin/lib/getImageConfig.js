@@ -7,10 +7,11 @@ export default function (pageName) {
     (rule) => rule[PAGE_NAME] === pageName
   );
   if (!thisImageRules) {
+    console.error(`Configuration for image at page "${pageName}" not found.`);
     return null;
   }
   const thisImageCap2xRule = thisImageRules[CAP_TO_2X];
   const isCapped = thisImageCap2xRule || thisImageCap2xRule === "true";
   const imageTemplate = thisImageRules[IMAGE_TEMPLATE];
-  return {isCapped, imageTemplate}
+  return { isCapped, imageTemplate };
 }

@@ -4,9 +4,10 @@
 
 Make generated HTML use a pattern URL with replaceable widths
 
-Test:
-- with excel config instead of JSON
-- without passing image template configuration
+- Test:
+  [v] with Excel config instead of JSON
+  [ ] without passing image template configuration
+- Refactor pageName -> imageName ± extractionConfig -> imageConfig?
 
 ## Next
 

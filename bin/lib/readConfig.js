@@ -2,6 +2,7 @@ import ExcelJS from "exceljs";
 import {
   CAP_TO_2X,
   IMAGE_CSS_SELECTOR,
+  IMAGE_TEMPLATE,
   PAGE_NAME,
   PAGE_URL,
   PIXEL_RATIO,
@@ -12,10 +13,17 @@ import getWorksheetNames from "./getWorksheetNames.js";
 import worksheetToJson from "./worksheetToJson.js";
 import fs from "fs";
 
-const withPageUrlHyperlink = (config) =>
-  config.map((row) =>
-    !row.pageUrl.hyperlink ? row : { ...row, pageUrl: row.pageUrl.hyperlink }
-  );
+const normalizeHyperlinks = (config, fields) => {
+  return config.map((row) => {
+    const normalizedRow = {};
+    for (const field of fields) {
+      normalizedRow[field] = row[field].hyperlink
+        ? row[field].hyperlink
+        : row[field];
+    }
+    return normalizedRow;
+  });
+};
 
 async function getResolutionsFromXslx() {
   const fileName = "./config/resolutions.xlsx";
@@ -39,7 +47,13 @@ async function getImagesConfigFromXlsx() {
   const workbook = new ExcelJS.Workbook();
   const sheetNames = await getWorksheetNames(workbook, fileName);
   const worksheet = workbook.getWorksheet(sheetNames[0]);
-  const columnsToRead = [PAGE_NAME, PAGE_URL, IMAGE_CSS_SELECTOR, CAP_TO_2X];
+  const columnsToRead = [
+    PAGE_NAME,
+    PAGE_URL,
+    IMAGE_CSS_SELECTOR,
+    CAP_TO_2X,
+    IMAGE_TEMPLATE,
+  ];
 
   if (!worksheet) {
     console.error(`Error reading ${fileName}`);
@@ -47,8 +61,7 @@ async function getImagesConfigFromXlsx() {
   }
 
   let extractionConfig = worksheetToJson(worksheet, columnsToRead);
-  extractionConfig = withPageUrlHyperlink(extractionConfig);
-  console.log("extractionConfig", extractionConfig);
+  extractionConfig = normalizeHyperlinks(extractionConfig, columnsToRead);
   return extractionConfig;
 }
 

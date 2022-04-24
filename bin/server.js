@@ -36,14 +36,16 @@ const buildImageModel = (imageConfig, pageData) => {
 app.get("/page/:pageName", async function (req, res) {
   const requestedPageName = req.params.pageName;
   const worksheet = workbook.getWorksheet(requestedPageName);
-
   if (!worksheet) {
     res.render("notFound.ejs", { pageName: requestedPageName });
     return;
   }
-
   const pageData = worksheetToJson(worksheet, columnsToRead);
   const imageConfig = getImageConfig(requestedPageName);
+  if (!imageConfig) {
+    res.render("notFound.ejs", { pageName: requestedPageName });
+    return;
+  }
   const imageModel = buildImageModel(imageConfig, pageData);
   const templateData = {
     image: imageModel,
@@ -51,7 +53,10 @@ app.get("/page/:pageName", async function (req, res) {
     imgAlt: `${requestedPageName} page image`,
   };
 
-  res.render(imageConfig.isCapped ? "capped.ejs" : "uncapped.ejs", templateData);
+  res.render(
+    imageConfig.isCapped ? "capped.ejs" : "uncapped.ejs",
+    templateData
+  );
 });
 
 app.listen(port, function (error) {
