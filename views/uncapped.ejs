@@ -11,8 +11,8 @@
     <h1><%= pageTitle %></h1>
     <img
       alt="<%= imgAlt %>"
-      src="https://via.placeholder.com/<%= image.legacyWidth %>"
-      srcset="<%= image.widths.map((imageWidth) => (`https://via.placeholder.com/${imageWidth} ${imageWidth}w`)).join() %>"
+      src="<%= image.legacyImgUrl %>"
+      srcset="<%= image.srcset %>"
       sizes="<%= image.sizesAttr %>"
     />
   </body>

@@ -19,7 +19,7 @@ This tool is useful to:
 ### Config
 
 - `config/resolutions.json` or `config/resolutions.xlsx` -- first found is used. If you use the Excel file, there's a specific format to follow: `usage`, `viewportWidth`, `pixelRatio`
-- `config/images.json` or `config/images.xlsx` -- first found is used. If you use the Excel file, there's a specific format to follow: `pageName`, `pageUrl`, `imageCssSelector`, `capTo2x`
+- `config/images.json` or `config/images.xlsx` -- first found is used. If you use the Excel file, there's a specific format to follow: `imageName`, `pageUrl`, `imageCssSelector`, `capTo2x`
 - `config/blacklisted_domains.js`
 - `config/blacklisted_paths.js`
 
@@ -29,7 +29,7 @@ This tool is useful to:
 
 ### Output
 
-Find the extracted data in `/data/datafile.xlsx`, one worksheet per row of the extraction page.
+Find the extracted data in `/data/datafile.xlsx`, one worksheet per row of the images config file.
 
 ## ANALYSE AND IMPROVE INTRINSIC WIDTHS
 
@@ -99,7 +99,7 @@ npm run start
 You can visit the pages at the URLs that will be displayed in the terminal.
 
 ```
-http://localhost:8080/page/{{ pagename }}/
+http://localhost:8080/image/{{ pagename }}/
 ```
 
 With `{{ pagename }}` being the name you used in `config/images.xlsx`
