@@ -1,8 +1,14 @@
 # TO DO
 
+## Currently
+
 Make generated HTML use a pattern URL with replaceable widths
 
----
+Test:
+- with excel config instead of JSON
+- without passing image template configuration
+
+## Next
 
 Un-wire that 414, 375@3x from extraction and calculate it using resolutions data and usage (414@2x is currently the wider & most-used smartphone, 375@3x is the most used)
 
