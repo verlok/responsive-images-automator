@@ -12,7 +12,7 @@
     <img
       alt="<%= imgAlt %>"
       src="<%= image.legacyImgUrl %>"
-      srcset="<%= image.widths.map((imageWidth) => (`https://via.placeholder.com/${imageWidth} ${imageWidth}w`)).join() %>"
+      srcset="<%= image.srcset %>"
       sizes="<%= image.sizesAttr %>"
     />
   </body>

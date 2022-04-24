@@ -4,6 +4,7 @@ import {
   IMG_VW,
   VIEWPORT_WIDTH,
 } from "./constants.js";
+import getImageUrl from "./getImageUrl.js";
 
 const uncappedCompareFn = (rowA, rowB) => {
   return (
@@ -47,8 +48,11 @@ export default (intrinsicWidthsConfig) => {
     sortedUncappedImgWidths
   );
   const legacyWidth = dedupedImgWidths[dedupedImgWidths.length - 1];
+  const srcset = dedupedImgWidths
+    .map((imageWidth) => `${getImageUrl(imageWidth)} ${imageWidth}w`)
+    .join();
   const templateData = {
-    widths: dedupedImgWidths,
+    srcset,
     legacyImgUrl: getImageUrl(legacyWidth),
     sizesAttr: getImageSizesAttr(imageSizesMediaQueries),
   };
