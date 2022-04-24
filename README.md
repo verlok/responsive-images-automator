@@ -2,61 +2,74 @@
 
 <img width="1276" alt="Responsive images automator" src="https://user-images.githubusercontent.com/1127721/161528200-ff6914cf-3712-4a22-a6be-cf532c197b5f.png">
 
-This tool is useful to:
+Responsive images automator does 3 main things for you. It:
 
-1. extract rendered CSS width from your pages
-2. generate the image tags (after you added intrinsic width to your data)
-3. test the generated image tags
+1. **Extracts data** from your existing images
+2. **Generates responsive images tags** for you
+3. **Tests** the generated image tags
 
-## 1️⃣ - EXTRACT RENDERED CSS WIDTHS
+Here goes some more detailed information.
+
+# 1 - Extract Rendered CSS Widths
 
 <img width="1274" alt="Extract images dimensions from your web pages" src="https://user-images.githubusercontent.com/1127721/161528333-8ea71e39-3c08-4274-86a0-59e939e34e50.png">
 
-- Extracts images `width` in CSS pixels and in `vw` unit from pages to an Excel file
-- Provides an intuitive way to select your intrinsic widths, with formulas and conditional formatting
-- Analyses the current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
+In this stage, responsive images automator does:
 
-### Config
+- **Extract** useful information such as the `width` (in CSS pixels and in `vw` unit) from your pages, at different viewport dimensions (which you can provide)
+- **Analyse** the current intrinsic widths with calculated formulas, to help you understand the current level of optimisation of your images.
+- **Provide** an easy and intuitive way to select new intrinsic widths to optimise your images
 
-- `config/resolutions.json` or `config/resolutions.xlsx` -- first found is used. If you use the Excel file, there's a specific format to follow: `usage`, `viewportWidth`, `pixelRatio`
-- `config/images.json` or `config/images.xlsx` -- first found is used. If you use the Excel file, there's a specific format to follow: `imageName`, `pageUrl`, `imageCssSelector`, `capTo2x`
-- `config/blacklisted_domains.js`
-- `config/blacklisted_paths.js`
+### Configuration files
 
-### Command
+- `config/resolutions.json` or `config/resolutions.xlsx` (the first found is used). NOTE: If you choose to use the Excel file, there's a specific format to follow, see example in `config/examples/resolutions.xlsx`.
+- `config/images.json` or `config/images.xlsx` (the first found is used). NOTE: If you choose to use the Excel file, there's a specific format to follow, see example in `config/examples/webdev/images.xlsx`.
+- `config/blacklisted_domains.js`, a list of domains containing blocking scripts that could hinder this tool from navigating around freely.
+- `config/blacklisted_paths.js`, a list of paths to blocking scripts on your own domain that could hinder this tool from navigating around freely.
 
-`npm run extract`
+### Execution
+
+After installing all dependencies with `npm install`, just run the following command in your terminal.
+
+```
+npm run extract
+```
+
+A magically driven browser window will appear, doing all what was promised in the previous lines.
 
 ### Output
 
 Find the extracted data in `/data/datafile.xlsx`, one worksheet per row of the images config file.
 
-## ANALYSE AND IMPROVE INTRINSIC WIDTHS
+## Analyse Extracted Data
 
-In the columns, find:
+In the columns of the extracted file, you will find:
 
-| Column name             | Meaning                                                                            |
-| ----------------------- | ---------------------------------------------------------------------------------- |
-| currentIntrinsicWidth   | The current width of the downloaded images                                         |
-| currentRenderedFidelity | The currently rendered fidelity (pixel ratio)                                      |
-| currentRTIFidelityRatio | The current rendered-to-ideal fidelity ratio, which ideal number is 1              |
-| currentEvaluation       | The evaluation of the current image intrinsic width, from BIG to POOR. Ideal is OK |
-| currentWaste            | How much you are wasting, in percentage. Considers how much the resolution is used |
-| idealIntrinsicWidth     | The ideal intrinsic width you would have to use                                    |
-| chosenIntrinsicWidth    | The intrinsic with you choose, to generate the HTML of your responsive images      |
-| chosenRenderedFidelity  | The chosen rendered fidelity (pixel ratio)                                         |
-| chosenRTIFidelityRatio  | The chosen rendered-to-ideal fidelity ratio, which ideal number is 1               |
-| chosenEvaluation        | The evaluation of the chosen image intrinsic width, from BIG to POOR. Ideal is OK  |
-| chosenWaste             | How much you would waste, in percentage. Considers how much the resolution is used |
+| Column name                | Meaning                                                                                                                                                                                                                                                                 |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `currentIntrinsicWidth`    | The current intrinsic width, meaning the width of the downloaded images                                                                                                                                                                                                 |
+| `currentRenderedFidelity`  | The current rendered fidelity (pixel ratio), meaning the ratio between the downloaded image width and the rendered width in CSS pixel                                                                                                                                   |
+| `currentRTIFidelityRatio`  | The current rendered-to-ideal fidelity ratio, meaning the ratio between the ideal fidelity ratio and the current fidelity ratio. In other words, the ideal value to find here would be 1                                                                                |
+| `currentEvaluation`        | The evaluation of the current image intrinsic width, from BIG to POOR. It is ideal to get an `OK` here, but also a `(+)` or a `(-)` are acceptable                                                                                                                      |
+| `currentWaste`             | This tells you how much you are wasting, in percentage. This value considers the `currentRTIFidelityRatio` AND the `usage`, so the wider the usage, the bigger the waste                                                                                                |
+| `idealIntrinsicWidth`      | The calculation of the ideal intrinsic width you would have to use to get an `OK` evaluation                                                                                                                                                                            |
+| **`chosenIntrinsicWidth`** | **The proposed intrinsic width. You can and should change this value. This value will be used to generate the HTML of your responsive images**                                                                                                                          |
+| `chosenRenderedFidelity`   | The chosen rendered fidelity (pixel ratio), meaning the ratio between the width of image that would be downloaded and the rendered width in CSS pixel                                                                                                                   |
+| `chosenRTIFidelityRatio`   | The chosen rendered-to-ideal fidelity ratio, meaning the ratio between the ideal fidelity ratio and the chosen fidelity ratio. You should try to get a value as close as possible to 1 in this cell                                                                     |
+| `chosenEvaluation`         | The evaluation of the chosen intrinsic width, from BIG to POOR. You should try to get an `OK` here, but also a `(+)` or a `(-)` are acceptable. You should act if you find a `BIG` or `POOR` evaluation and the resolution is used enough to generate significant waste |
+| `chosenWaste`              | This calculates how much you would be wasting, in percentage, with the chosen numbers. This value considers the `chosenRTIFidelityRatio` AND the `usage`, so the wider the usage, the bigger the waste                                                                  |
 
-Defining the intrinsic width of the images would be your only manual step.
-Don't panic, we got your back.
+## Time To Optimise!
 
-### Open the data file
+Here's where you, human, come about. You need to define the intrinsic widths you want, with the help of the computer, and ultimately change that **`chosenIntrinsicWidth`** column.
+
+💪 **Don't panic, we got your back.** Here are the steps you need to follow.
+
+### A - Open the data file
 
 Open extracted data (`/data/datafile.xlsx`) in Excel.
 
-### Define intrinsic widths
+### B - Define intrinsic widths
 
 You'll need to define ideal images' intrinsic widths in order to have a few (5 or 6) final image dimensions and minimise waste.
 
@@ -64,75 +77,115 @@ The magic formulas in the rightmost columns of the spreadsheet will guide you.
 
 Adjust `chosenIntrinsicWidth` where you see "POOR" or "BIG" indications in the `chosenEvaluation` column. You want to accept a "BIG" on rarely used resolutions, e.g. 320@2x.
 
-Now check: do you have similar `chosenIntrinsicWidth` values? If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution. Do that and check again the `isOK` column and adjust where needed.
+Now check: do you have similar `chosenIntrinsicWidth` values? If you do, group them by using one of the similar values. It is generally a good idea to use the one that corresponds to the most used resolution.
 
-### Polish VW
+### C - (Optional) Polish VW
 
-In the Uncapped Images Page data, it's important to group together similar values of the `imgVW` column. So if you have values like `39`, `40`, `41`, you can probably set them all to `40`. This will allow the tag-generation script to generate ligher HTML code for the same results.
+If you have different but similar values in the `imgVW` column, it's a good idea to group them to get lighter HTML code and the same result. E.g. if you have `vw` values like `39`, `40`, `41`, you should probably set them all to `40`.
 
-### Repeat for each worksheet
+### D - Repeat for each worksheet
 
-Do the above steps for each of the worksheets (Excel tabs).
+Do the above steps for each of the worksheets. In case you don't know, worksheets are the Excel tabs below the cells
 
-### Multiple pages refinement
+### E - (Optional) Multiple pages refinement
 
 Reusing the same dimensions across pages will leverage CDN cache and browser cache for all of your users.
 
-So check again: do you have similar `chosenIntrinsicWidth` values ACROSS PAGES?
-
-To check this, copy all the `chosenIntrinsicWidth` from the listing page and uncapped images page in a new sheet, sort the values and remove the duplicates. Calculate the delta between each of the widths, it's usually a bad practice to have deltas < 100 pixels.
+So check: do you have similar `chosenIntrinsicWidth` values ACROSS PAGES?
 
 If you do have similar `chosenIntrinsicWidth` values, group them by using one of the similar values and repeat the process.
 
-This new sheet will also give you a list of all the dimensions (widths) as an outcome, to pass as a config to your image processing tool.
+---
 
-## 2️⃣ - GENERATE IMAGE TAGS
+**Love this project? 😍 [Buy me a coffee!](https://ko-fi.com/verlok)**
+
+---
+
+# 2️ - Generate Image Tags
 
 <img width="1276" alt="Generates HTML code for responsive images" src="https://user-images.githubusercontent.com/1127721/161528489-f3b153ef-da59-409c-b398-2f8f0dd17029.png">
 
-Launch the server and visit pages to get the image tags you'd need.
+In this stage, responsive images automator does:
 
-```zsh
+- **Spin up** an HTTP server
+- **Generate the HTML** for every image using the data we have in the `data/datafile.xslx` in the configuration file
+
+### Execution
+
+After installing all dependencies with `npm install`, just run the following command in your terminal.
+
+```
 npm run start
 ```
 
-You can visit the pages at the URLs that will be displayed in the terminal.
+This will launch the server and output a list of the URLs you can visit, like the following:
 
 ```
-http://localhost:8080/image/{{ pagename }}/
+http://localhost:8080/image/{{imageName}}/
 ```
 
-With `{{ pagename }}` being the name you used in `config/images.xlsx`
+With `{{imageName}}` being the name you used in `config/images.xlsx`
 
-Use developer tools to inspect the images, right-click, copy outerHtml.
+When the page will be loaded by the browser, an image will be rendered in it. 
+Use your browser's developer tools to inspect the images, right-click, copy the `outerHtml` of the image.
 
-## 3️⃣ - TEST GENERATED IMAGE TAGS
+---
+
+**Love this project? 😍 [Buy me a coffee!](https://ko-fi.com/verlok)**
+
+---
+
+# 3️ - Test Generated Image Tags
 
 <img width="1277" alt="Makes sure browsers download the correct image" src="https://user-images.githubusercontent.com/1127721/161528572-d5b57969-159a-4153-b4da-eac25778784f.png">
 
-Test the generated tag to understand if browsers will download images of the intrinsic width you selected.
+In this stage, responsive images automator does:
 
-### Commands
+- **Generate the tests** files you need
+- **Test the generated tag** to effectively check if browsers download the images of the intrinsic width you selected.
 
-You can now automatically generate test files. To do so, run the command:
+### Execution
 
-```zsh
+After installing all dependencies with `npm install`, just run the following command in your terminal.
+
+To generate test files, run the command:
+
+```
 npm run build:tests
 ```
 
-If the server is not running already, run:
-
-```zsh
-npm run start
-```
-
-While the server is running (in another terminal window), run:
+While the server is running in another terminal window (see `npm run start` above), run:
 
 ```zsh
 npm run test
 ```
 
+This will open an invisible browser and make sure that, at different resolutions, the downloaded image is always the one you intended.
 
-## CONFERENCE TALKS ABOUT THIS
+### Something is red?
+
+Tests are made to understand if you made mistakes and change things accordingly. 
+
+If some test returned a red statement, read it carefully and try to understand why your browser downloaded a differnt image at that specific resolution.
+
+If you aren't able to understand, you could open an issue and request for advice. I can't guarantee how quick I will reply, but I will reply at some point.
+
+---
+
+**Love this project? 😍 [Buy me a coffee!](https://ko-fi.com/verlok)**
+
+---
+
+### Something is broken?
+
+If you found errors in this tool, please open an issue and report it to me. Thanks!
+
+---
+
+**Love this project? 😍 [Buy me a coffee!](https://ko-fi.com/verlok)**
+
+---
+
+## Conference Talks About This Tool
 
 I talked about this tool at [CSS Day IT conference 2022](https://2022.cssday.it/schedule/). [In this blog post](https://www.andreaverlicchi.eu/css-day-2022-talk-automating-responsive-images-automator-ottimizzazione-immagini-4-0/) you will find the slides and the video of that talk.

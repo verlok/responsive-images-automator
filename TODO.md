@@ -2,9 +2,7 @@
 
 ## Next
 
-Read the readme and fix it!
-The side preview can help.
-Polish those 'listing pages' and 'detail pages' from the readme. 
+In the page rendered by `server.js` also display the HTML of the image as raw HTML.
 
 ---
 

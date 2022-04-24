@@ -56,11 +56,6 @@ const columns = {
 
 const startRowNumber = 2;
 
-function camelToSentence(camel) {
-  const result = camel.replace(/([A-Z])/g, " $1");
-  return result.charAt(0).toUpperCase() + result.slice(1);
-}
-
 function getNumberFormat(key) {
   switch (key) {
     case USAGE:
