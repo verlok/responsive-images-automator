@@ -12,6 +12,10 @@ import getImageConfig from "./lib/getImageConfig.js";
 
 const workbook = new ExcelJS.Workbook();
 const imageNames = await getWorksheetNames(workbook, "./data/datafile.xlsx");
+if (!imageNames) {
+  console.error("No sheets found. Aborting.");
+  process.exit(1);
+}
 const columnsToRead = [VIEWPORT_WIDTH, PIXEL_RATIO, CHOSEN_INTRINSIC_WIDTH];
 
 imageNames.forEach((imageName) => {

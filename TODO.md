@@ -2,10 +2,6 @@
 
 ## Next
 
-Graceful error message if you try and `npm run start` without a `datafile.xlsx`.
-
----
-
 Un-wire that 414, 375@3x from extraction and calculate it using resolutions data and usage (414@2x is currently the wider & most-used smartphone, 375@3x is the most used)
 
 ---
