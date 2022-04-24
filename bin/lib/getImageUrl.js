@@ -1,8 +1,8 @@
 import Mustache from "mustache";
 
-const defaultTemplate = `https://via.placeholder.com/{{ imgWidth }}`;
+const defaultTemplate = `https://via.placeholder.com/{{ width }}`;
 
-export default (imgWidth, template) => {
+export default (width, template) => {
   const templateToUse = template || defaultTemplate;
-  return Mustache.render(templateToUse, { imgWidth });
+  return Mustache.render(templateToUse, { width });
 };

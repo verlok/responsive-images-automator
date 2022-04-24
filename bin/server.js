@@ -4,7 +4,7 @@ import buildUncappedImgModel from "./lib/uncappedImageModelBuilder.js";
 import worksheetToJson from "./lib/worksheetToJson.js";
 import getWorksheetNames from "./lib/getWorksheetNames.js";
 import welcomeMessage from "./lib/welcomeMessage.js";
-import getIsCapped from "./lib/getIsCapped.js";
+import getImageConfig from "./lib/getImageConfig.js";
 import {
   CHOSEN_INTRINSIC_WIDTH,
   IMG_VW,
@@ -26,10 +26,12 @@ const columnsToRead = [
   CHOSEN_INTRINSIC_WIDTH,
 ];
 
-const buildImageModel = (isCapped, pageData) =>
-  isCapped
-    ? buildCappedImgModel(pageData, 2)
-    : buildUncappedImgModel(pageData);
+const buildImageModel = (imageConfig, pageData) => {
+  const { isCapped, imageTemplate } = imageConfig;
+  return isCapped
+    ? buildCappedImgModel(pageData, 2, imageTemplate)
+    : buildUncappedImgModel(pageData, imageTemplate);
+};
 
 app.get("/page/:pageName", async function (req, res) {
   const requestedPageName = req.params.pageName;
@@ -41,15 +43,15 @@ app.get("/page/:pageName", async function (req, res) {
   }
 
   const pageData = worksheetToJson(worksheet, columnsToRead);
-  const isCapped = getIsCapped(requestedPageName);
-  const imageModel = buildImageModel(isCapped, pageData);
+  const imageConfig = getImageConfig(requestedPageName);
+  const imageModel = buildImageModel(imageConfig, pageData);
   const templateData = {
     image: imageModel,
     pageTitle: `${requestedPageName} page`,
     imgAlt: `${requestedPageName} page image`,
   };
-  
-  res.render(isCapped ? "capped.ejs" : "uncapped.ejs", templateData);
+
+  res.render(imageConfig.isCapped ? "capped.ejs" : "uncapped.ejs", templateData);
 });
 
 app.listen(port, function (error) {

@@ -38,7 +38,7 @@ const getImageSizesMediaQueries = (sortedWidths) => {
   return mediaQueries;
 };
 
-export default (intrinsicWidthsConfig) => {
+export default (intrinsicWidthsConfig, imageTemplate) => {
   const sortedUncappedImgWidths = intrinsicWidthsConfig.sort(uncappedCompareFn);
   const onlyImgWidths = sortedUncappedImgWidths.map(
     (row) => row[CHOSEN_INTRINSIC_WIDTH]
@@ -49,11 +49,11 @@ export default (intrinsicWidthsConfig) => {
   );
   const legacyWidth = dedupedImgWidths[dedupedImgWidths.length - 1];
   const srcset = dedupedImgWidths
-    .map((imageWidth) => `${getImageUrl(imageWidth)} ${imageWidth}w`)
+    .map((imageWidth) => `${getImageUrl(imageWidth, imageTemplate)} ${imageWidth}w`)
     .join();
   const templateData = {
     srcset,
-    legacyImgUrl: getImageUrl(legacyWidth),
+    legacyImgUrl: getImageUrl(legacyWidth, imageTemplate),
     sizesAttr: getImageSizesAttr(imageSizesMediaQueries),
   };
   return templateData;

@@ -28,7 +28,7 @@ const calculateCappedWidths = (pageData, pxrCapping) => {
   return output;
 };
 
-export default (intrinsicWidthsConfig, pxrCap) => {
+export default (intrinsicWidthsConfig, pxrCap, imageTemplate) => {
   const sortedWidthConfig = intrinsicWidthsConfig.sort(cappedCompareFn);
   const sortedCappedImgWidths = calculateCappedWidths(
     sortedWidthConfig,
@@ -38,9 +38,9 @@ export default (intrinsicWidthsConfig, pxrCap) => {
     sortedCappedImgWidths[sortedCappedImgWidths.length - 1].widthAt1x;
   const mobileWidth = sortedCappedImgWidths[0].widthAt2x;
   const templateData = {
-    mobileImgUrl: getImageUrl(mobileWidth),
+    mobileImgUrl: getImageUrl(mobileWidth, imageTemplate),
     mediaQueries: [],
-    legacyImgUrl: getImageUrl(legacyWidth),
+    legacyImgUrl: getImageUrl(legacyWidth, imageTemplate),
   };
   let prevImgWidths = `${sortedCappedImgWidths[0].widthAt1x}|${sortedCappedImgWidths[0].widthAt2x}`;
   for (const row of sortedCappedImgWidths) {
@@ -48,8 +48,8 @@ export default (intrinsicWidthsConfig, pxrCap) => {
     if (currentImgWidths !== prevImgWidths) {
       templateData.mediaQueries.push({
         minWidth: row[VIEWPORT_WIDTH],
-        imgUrlAt1x: getImageUrl(row.widthAt1x),
-        imgUrlAt2x: getImageUrl(row.widthAt2x),
+        imgUrlAt1x: getImageUrl(row.widthAt1x, imageTemplate),
+        imgUrlAt2x: getImageUrl(row.widthAt2x, imageTemplate),
       });
       prevImgWidths = currentImgWidths;
     }
