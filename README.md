@@ -61,7 +61,7 @@ In the columns of the extracted file, you will find:
 
 ## Time To Optimise!
 
-Here's where you, human, come about. You need to define the intrinsic widths you want, with the help of the computer, and ultimately change that **`chosenIntrinsicWidth`** column.
+Here's where you, human, come into play. You need to define the intrinsic widths you want, with the help of the computer, and ultimately change that **`chosenIntrinsicWidth`** column.
 
 💪 **Don't panic, we got your back.** Here are the steps you need to follow.
 
