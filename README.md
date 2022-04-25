@@ -103,7 +103,7 @@ If you do have similar `chosenIntrinsicWidth` values, group them by using one of
 
 ---
 
-# 2️ - Generate Image Tags
+# 2 - Generate Image Tags
 
 <img width="1276" alt="Generates HTML code for responsive images" src="https://user-images.githubusercontent.com/1127721/161528489-f3b153ef-da59-409c-b398-2f8f0dd17029.png">
 
@@ -138,7 +138,7 @@ Under the rendered image, find the generated HTML code.
 
 ---
 
-# 3️ - Test Generated Image Tags
+# 3 - Test Generated Image Tags
 
 <img width="1277" alt="Makes sure browsers download the correct image" src="https://user-images.githubusercontent.com/1127721/161528572-d5b57969-159a-4153-b4da-eac25778784f.png">
 
