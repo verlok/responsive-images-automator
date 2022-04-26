@@ -5,14 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= pageTitle %></title>
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/styles/monokai-sublime.min.css"
+    />
     <style>
-      output {
+      code {
         margin: 1rem 0;
         padding: 1rem;
         display: block;
         font-family: monospace;
-        background-color: gainsboro;
-        border: 1px solid grey
+        white-space: pre-wrap;
+        background-color: rgb(236, 236, 236);
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+        border: 1px solid grey;
       }
     </style>
   </head>
@@ -29,11 +35,17 @@
     />
 
     <h2>HTML code</h2>
-    <code><output></output></code>
+    <pre><code class="language-html"></code></pre>
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
     <script>
+      const escapeHtml = (unsafe) => {
+        return unsafe.replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+      }
+      const picture = document.querySelector("picture");
       const img = document.querySelector("img");
-      const output = document.querySelector("output");
-      output.innerText = img.outerHTML;
+      const output = document.querySelector("code");
+      output.innerHTML = escapeHtml(picture ? picture.outerHTML : img.outerHTML);
+      hljs.highlightAll();</script>
     </script>
   </body>
 </html>
