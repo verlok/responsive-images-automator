@@ -20,7 +20,7 @@ const getImageSizesAttr = (imageSizes) =>
         ? `${imageSize.vw}vw`
         : `(min-width: ${imageSize.minWidth}px) ${imageSize.vw}vw`
     )
-    .join();
+    .join(', ');
 
 const getImageSizesMediaQueries = (sortedWidths) => {
   let prevImgVW = sortedWidths[0][IMG_VW];
@@ -50,7 +50,7 @@ export default (intrinsicWidthsConfig, imageTemplate) => {
   const legacyWidth = dedupedImgWidths[dedupedImgWidths.length - 1];
   const srcset = dedupedImgWidths
     .map((imageWidth) => `${getImageUrl(imageWidth, imageTemplate)} ${imageWidth}w`)
-    .join();
+    .join(', ');
   const templateData = {
     srcset,
     legacyImgUrl: getImageUrl(legacyWidth, imageTemplate),

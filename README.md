@@ -47,23 +47,25 @@ In the columns of the extracted file, you will find:
 
 | Column name                | Meaning                                                                                                                                                                                                                                                                 |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `currentIntrinsicWidth`    | The current intrinsic width, meaning the width of the downloaded images                                                                                                                                                                                                 |
-| `currentRenderedFidelity`  | The current rendered fidelity (pixel ratio), meaning the ratio between the downloaded image width and the rendered width in CSS pixel                                                                                                                                   |
-| `currentRTIFidelityRatio`  | The current rendered-to-ideal fidelity ratio, meaning the ratio between the ideal fidelity ratio and the current fidelity ratio. In other words, the ideal value to find here would be 1                                                                                |
-| `currentEvaluation`        | The evaluation of the current image intrinsic width, from BIG to POOR. It is ideal to get an `OK` here, but also a `(+)` or a `(-)` are acceptable                                                                                                                      |
-| `currentWaste`             | This tells you how much you are wasting, in percentage. This value considers the `currentRTIFidelityRatio` AND the `usage`, so the wider the usage, the bigger the waste                                                                                                |
-| `idealIntrinsicWidth`      | The calculation of the ideal intrinsic width you would have to use to get an `OK` evaluation                                                                                                                                                                            |
-| **`chosenIntrinsicWidth`** | **The proposed intrinsic width. You can and should change this value. This value will be used to generate the HTML of your responsive images**                                                                                                                          |
-| `chosenRenderedFidelity`   | The chosen rendered fidelity (pixel ratio), meaning the ratio between the width of image that would be downloaded and the rendered width in CSS pixel                                                                                                                   |
-| `chosenRTIFidelityRatio`   | The chosen rendered-to-ideal fidelity ratio, meaning the ratio between the ideal fidelity ratio and the chosen fidelity ratio. You should try to get a value as close as possible to 1 in this cell                                                                     |
-| `chosenEvaluation`         | The evaluation of the chosen intrinsic width, from BIG to POOR. You should try to get an `OK` here, but also a `(+)` or a `(-)` are acceptable. You should act if you find a `BIG` or `POOR` evaluation and the resolution is used enough to generate significant waste |
-| `chosenWaste`              | This calculates how much you would be wasting, in percentage, with the chosen numbers. This value considers the `chosenRTIFidelityRatio` AND the `usage`, so the wider the usage, the bigger the waste                                                                  |
+| `current` `Intrinsic` `Width`    | The current intrinsic width, meaning the width of the downloaded images                                                                                                                                                                                                 |
+| `current` `Rendered` `Fidelity`  | The current rendered fidelity (pixel ratio), meaning the ratio between the downloaded image width and the rendered width in CSS pixel                                                                                                                                   |
+| `current` `RTI` `Fidelity` `Ratio`  | The current rendered-to-ideal fidelity ratio, meaning the ratio between the ideal fidelity ratio and the current fidelity ratio. In other words, the ideal value to find here would be 1                                                                                |
+| `current` `Evaluation`        | The evaluation of the current image intrinsic width, from BIG to POOR. It is ideal to get an `OK` here, but also a `(+)` or a `(-)` are acceptable                                                                                                                      |
+| `current` `Waste`             | This tells you how much you are wasting, in percentage. This value considers the `currentRTIFidelityRatio` AND the `usage`, so the wider the usage, the bigger the waste                                                                                                |
+| `ideal` `Intrinsic` `Width`      | The calculation of the ideal intrinsic width you would have to use to get an `OK` evaluation                                                                                                                                                                            |
+| **`chosen` `Intrinsic` `Width`** | **The proposed intrinsic width. You can and should change this value. This value will be used to generate the HTML of your responsive images**                                                                                                                          |
+| `chosen` `Rendered` `Fidelity`   | The chosen rendered fidelity (pixel ratio), meaning the ratio between the width of image that would be downloaded and the rendered width in CSS pixel                                                                                                                   |
+| `chosen` `RTI` `Fidelity` `Ratio`   | The chosen rendered-to-ideal fidelity ratio, meaning the ratio between the ideal fidelity ratio and the chosen fidelity ratio. You should try to get a value as close as possible to 1 in this cell                                                                     |
+| `chosen` `Evaluation`         | The evaluation of the chosen intrinsic width, from BIG to POOR. You should try to get an `OK` here, but also a `(+)` or a `(-)` are acceptable. You should act if you find a `BIG` or `POOR` evaluation and the resolution is used enough to generate significant waste |
+| `chosen` `Waste`              | This calculates how much you would be wasting, in percentage, with the chosen numbers. This value considers the `chosenRTIFidelityRatio` AND the `usage`, so the wider the usage, the bigger the waste                                                                  |
 
 ## Time To Optimise!
 
-Here's where you, human, come about. You need to define the intrinsic widths you want, with the help of the computer, and ultimately change that **`chosenIntrinsicWidth`** column.
+This is where you, human, come into play. 
+You have to decide which intrinsic widths you want to use, with the help of the suggestion in the `IdealIntrinsicWidth` column, and change the values in the `ChosenIntrinsicWidth` column, taking into account the values ​​generated by the magic formulas in the columns on the far right.
+When you are done, save the file.
 
-💪 **Don't panic, we got your back.** Here are the steps you need to follow.
+**Don't panic!** Here are the steps you need to follow.
 
 ### A - Open the data file
 
@@ -101,7 +103,7 @@ If you do have similar `chosenIntrinsicWidth` values, group them by using one of
 
 ---
 
-# 2️ - Generate Image Tags
+# 2 - Generate Image Tags
 
 <img width="1276" alt="Generates HTML code for responsive images" src="https://user-images.githubusercontent.com/1127721/161528489-f3b153ef-da59-409c-b398-2f8f0dd17029.png">
 
@@ -136,7 +138,7 @@ Under the rendered image, find the generated HTML code.
 
 ---
 
-# 3️ - Test Generated Image Tags
+# 3 - Test Generated Image Tags
 
 <img width="1277" alt="Makes sure browsers download the correct image" src="https://user-images.githubusercontent.com/1127721/161528572-d5b57969-159a-4153-b4da-eac25778784f.png">
 
