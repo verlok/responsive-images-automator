@@ -19,9 +19,10 @@ export default async function (resolutions, page, imageConfig, fidelityCap) {
       page,
       resolution,
       imageCssSelector,
-      forceReload
+      forceReload // TODO: Make `forceReload` a CLI option
     );
-    //await takeScreenshot(page, resolution, imageConfig[IMAGE_NAME]);
+    // await takeScreenshot(page, resolution, imageConfig[IMAGE_NAME]);
+    // TODO: Make `takeScreenshot` this a CLI option
     currentPageData.push({
       ...resolution,
       [IMG_WIDTH]: imgWidth,
