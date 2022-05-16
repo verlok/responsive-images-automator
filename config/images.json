@@ -1,16 +1,16 @@
 [
   {
-    "pageUrl": "https://web.dev/",
-    "imageName": "webdev-home-mishipay",
-    "imageCssSelector": "#main > div > header > div > div > div.flow > a:nth-child(2) > img",
+    "pageUrl": "https://chloe.yooxbox.com/it/chloe/shop-online/donna/la-sneaker-lauren",
+    "imageName": "chloe-plp",
+    "imageCssSelector": "#products > article:nth-child(1) > a > div.searchProductimages-wrapper.searchProductImages.laif-loaded-style.laif-loaded > div > picture > img",
     "capTo2x": true,
-    "imageTemplate": "https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/CZo4R87iOBYiRpIq6NcP.jpg?auto=format&w={{width}}"
+    "imageTemplate": "https://chloe.yooxbox.com/product_image/11651807FT/f/w{{width}}.jpg"
   },
   {
-    "pageUrl": "https://web.dev/mishipay/",
-    "imageName": "webdev-mishipay-hero",
-    "imageCssSelector": "#main > img",
+    "pageUrl": "https://chloe.yooxbox.com/it/sneaker_cod17107893wk.html",
+    "imageName": "chloe-pdp",
+    "imageCssSelector": "#main > article > div.gallery > div > div.slider-gallery.swiper-container.swiper-initialized.swiper-horizontal.swiper-pointer-events.swiper-backface-hidden > div.swiper-wrapper > div.swiper-slide.swiper-slide-1.has-zoom.swiper-slide-active > picture > img",
     "capTo2x": false,
-    "imageTemplate": "https://web-dev.imgix.net/image/8WbTDNrhLsU0El80frMBGE4eMCD3/CZo4R87iOBYiRpIq6NcP.jpg?auto=format&w={{width}}"
+    "imageTemplate": "https://chloe.yooxbox.com/product_image/17107893wk/f/w{{width}}.jpg"
   }
 ]
