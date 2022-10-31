@@ -1,7 +1,7 @@
 {
   "name": "responsive-images-automator",
   "version": "4.4.0",
-  "description": "",
+  "description": "Automate the analysis of your image dimensions, automate the generation of responsive images HTML code, test the outcome",
   "main": "index.js",
   "scripts": {
     "extract": "node ./bin/extract.js",
