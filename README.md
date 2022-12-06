@@ -10,6 +10,8 @@ Responsive images automator does 3 main things for you. It:
 
 Here goes some more detailed information.
 
+There is also [this video](https://www.youtube.com/watch?v=vuWH34f6uds) from the [LazyLoad Conference 2022](https://webdirections.org/lazyload/) where I explain how to use this tool.
+
 # 1 - Extract Rendered CSS Widths
 
 <img width="1274" alt="Extract images dimensions from your web pages" src="https://user-images.githubusercontent.com/1127721/161528333-8ea71e39-3c08-4274-86a0-59e939e34e50.png">
